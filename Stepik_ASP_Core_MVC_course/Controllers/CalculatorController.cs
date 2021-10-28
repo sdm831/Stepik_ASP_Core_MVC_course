@@ -8,26 +8,47 @@ using System.Threading.Tasks;
 namespace Stepik_ASP_Core_MVC_course.Controllers
 {
     public class CalculatorController : Controller
-    {
-        // GET: CalculatorController
-        public string Index(double a, double b)
+    {        
+        public string Index(double a, double b, string str)
         {
-            return $"{a} + {b} = {a+b}";
-        }
+            char c;
+            if (str == null)
+            {
+                c = '+';
+            }
+            else
+            {
+                c = str[0];
+            }
 
-        // GET: CalculatorController/Details/5
+            if (c == '+' || c == '-' || c == '*')
+            {
+                switch (c)
+                {
+                    case '+':
+                        return $"{a} + {b} = {a + b}";                        
+                    case '-':
+                        return $"{a} - {b} = {a - b}";                        
+                    default:
+                        return $"{a} * {b} = {a * b}";                        
+                }
+            }
+
+            else
+            {
+                return "Math operation is false.";
+            }
+        }
+        
         public ActionResult Details(int id)
         {
             return View();
         }
-
-        // GET: CalculatorController/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: CalculatorController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(IFormCollection collection)
@@ -42,13 +63,11 @@ namespace Stepik_ASP_Core_MVC_course.Controllers
             }
         }
 
-        // GET: CalculatorController/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: CalculatorController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
@@ -63,13 +82,11 @@ namespace Stepik_ASP_Core_MVC_course.Controllers
             }
         }
 
-        // GET: CalculatorController/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: CalculatorController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
