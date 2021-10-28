@@ -11,7 +11,13 @@ namespace Stepik_ASP_Core_MVC_course.Controllers
     {
         public string Hello()
         {
-            return "test Start controller";
+            var dtCurrent = DateTime.Now;
+            
+            if (dtCurrent.Hour >= 0 && dtCurrent.Hour < 6) return "Доброй ночи";
+            if (dtCurrent.Hour >= 6 && dtCurrent.Hour < 12) return "Доброе утро";
+            if (dtCurrent.Hour >= 12 && dtCurrent.Hour < 18) return "Добрый день";
+            if (dtCurrent.Hour >= 18 && dtCurrent.Hour < 24) return "Добрый вечер";
+            return "";
         }
                 
         public ActionResult Index()
