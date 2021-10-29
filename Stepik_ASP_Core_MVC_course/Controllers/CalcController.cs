@@ -10,9 +10,37 @@ namespace Stepik_ASP_Core_MVC_course.Controllers
     public class CalcController : Controller
     {
         // GET: CalcController
-        public string Index()
+        public string Index(double a, double b, string c)
         {
-            return "lesson 2-4";
+            char ch;
+            if (c == null)
+            {
+                ch = '+';
+            }
+            else
+            {
+                ch = c[0];
+            }
+
+            if (ch == '+' || ch == '-' || ch == '*' || ch == '/')
+            {
+                switch (ch)
+                {
+                    case '+':
+                        return $"{a} + {b} = {a + b}";
+                    case '-':
+                        return $"{a} - {b} = {a - b}";
+                    case '*':
+                        return $"{a} * {b} = {a * b}";
+                    default:
+                        return $"{a} / {b} = {a / b}";
+                }
+            }
+
+            else
+            {
+                return "Math operation is false.";
+            }
         }
 
         // GET: CalcController/Details/5
