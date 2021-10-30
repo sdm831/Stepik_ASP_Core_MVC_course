@@ -18,9 +18,16 @@ namespace Stepik_ASP_Core_MVC_course.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
-        {
-            return View();
+        public string Index(int id)
+        {            
+            string outputStr = "";
+
+            foreach(var p in Product.products)
+            {
+                outputStr += $"{p.Id}\n{p.Name}\n{p.Cost}\n\n";
+            }
+
+            return outputStr;
         }
 
         public IActionResult Privacy()
