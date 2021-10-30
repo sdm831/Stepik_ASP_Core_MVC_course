@@ -22,7 +22,18 @@ namespace Stepik_ASP_Core_MVC_course.Controllers
         {            
             string outputStr = "";
 
-            foreach(var p in Product.products)
+            if (id != 0)
+            {
+                foreach (var p in Product.products)
+                {
+                    if (id == p.Id)
+                    {
+                        return $"{p.Id}\n{p.Name}\n{p.Cost}\n{p.Description}\n";
+                    }
+                }
+            }
+
+            foreach (var p in Product.products)
             {
                 outputStr += $"{p.Id}\n{p.Name}\n{p.Cost}\n\n";
             }
