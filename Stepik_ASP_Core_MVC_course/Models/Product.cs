@@ -7,23 +7,27 @@ namespace Stepik_ASP_Core_MVC_course.Models
 {
     public class Product
     {
-        public static List<Product> products = new List<Product>()
-        {
-            new Product(01, "cement", 300, "Лучший цемент.") { },
-            new Product(02, "kraska", 800, "Яркая краска.") { },
-            new Product(03, "lak", 500, "Прозрачный лак.") { }
-        };
         
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public int Cost { get; set; }
-        public string Description { get; set; }
-        public Product(int id, string name, int cost, string description)
+        
+        private static int idGenerator = 0;
+
+        public int ProductId { get; }
+        public string Name { get; }
+        public decimal Cost { get; }
+        public string Description { get; }
+        public Product(string name, int cost, string description)
         {
-            Id = id;
+            ProductId = idGenerator;
             Name = name;
             Cost = cost;
             Description = description;
+
+            idGenerator += 1;
+        }
+
+        public override string ToString()
+        {
+            return $"{ProductId}\n{Name}\n{Cost}";
         }
     }
 }

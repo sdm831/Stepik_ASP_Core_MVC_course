@@ -9,25 +9,21 @@ namespace Stepik_ASP_Core_MVC_course.Controllers
 {
     public class CalculatorController : Controller
     {        
-        public string Index(double a, double b, string str)
+        public string Index(double a, double b, string c)
         {
-            char c;
-            if (str == null)
+            
+            if (c == null)
             {
-                c = '+';
+                c = "+";
             }
-            else
-            {
-                c = str[0];
-            }
-
-            if (c == '+' || c == '-' || c == '*')
+            
+            if (c == "+" || c == "-" || c == "*")
             {
                 switch (c)
                 {
-                    case '+':
+                    case "+":
                         return $"{a} + {b} = {a + b}";                        
-                    case '-':
+                    case "-":
                         return $"{a} - {b} = {a - b}";                        
                     default:
                         return $"{a} * {b} = {a * b}";                        

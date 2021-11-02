@@ -11,34 +11,24 @@ namespace Stepik_ASP_Core_MVC_course.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ProductRepository productRepository;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController()
         {
-            _logger = logger;
+            productRepository = new ProductRepository();
         }
-
-        public string Index(int id)
+        
+        public string Index()
         {            
-            string outputStr = "";
+            var result = "";
+            var products = productRepository.GetAll();
 
-            if (id != 0)
+            foreach (var p in products)
             {
-                foreach (var p in Product.products)
-                {
-                    if (id == p.Id)
-                    {
-                        return $"{p.Id}\n{p.Name}\n{p.Cost}\n{p.Description}\n";
-                    }
-                }
+                result += $"{p}\n\n";
             }
 
-            foreach (var p in Product.products)
-            {
-                outputStr += $"{p.Id}\n{p.Name}\n{p.Cost}\n\n";
-            }
-
-            return outputStr;
+            return result;
         }
 
         public IActionResult Privacy()
