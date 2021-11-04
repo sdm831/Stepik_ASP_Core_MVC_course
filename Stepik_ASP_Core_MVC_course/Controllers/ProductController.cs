@@ -15,21 +15,10 @@ namespace Stepik_ASP_Core_MVC_course.Controllers
             productRepository = new ProductRepository();
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int id)
         {
-            //var product = productRepository.TryGetById(id);
-            var products = productRepository.GetAll();
-
-            //if (product == null)
-            //{
-            //    return $"Продукта с id={id} не обнаружено!";
-            //}
-            //else
-            //{
-            //    return $"{product}\n{product.Description}";
-            //}
-
-            return View(products);
+            var product = productRepository.TryGetById(id);            
+            return View(product);
         }
     }
 }

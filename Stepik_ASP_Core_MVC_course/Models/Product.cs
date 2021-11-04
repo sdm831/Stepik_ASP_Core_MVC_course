@@ -9,18 +9,20 @@ namespace Stepik_ASP_Core_MVC_course.Models
     {
         
         
-        private static int idGenerator = 0;
+        private static int idGenerator = 1;
 
         public int ProductId { get; }
         public string Name { get; }
         public decimal Cost { get; }
         public string Description { get; }
-        public Product(string name, int cost, string description)
+        public string ImagePath { get; }
+        public Product(string name, int cost, string description, string imagePath)
         {
             ProductId = idGenerator;
             Name = name;
             Cost = cost;
             Description = description;
+            ImagePath = imagePath;
 
             idGenerator += 1;
         }

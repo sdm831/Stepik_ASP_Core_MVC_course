@@ -18,17 +18,10 @@ namespace Stepik_ASP_Core_MVC_course.Controllers
             productRepository = new ProductRepository();
         }
         
-        public string Index()
+        public IActionResult Index()
         {            
-            var result = "";
-            var products = productRepository.GetAll();
-
-            foreach (var p in products)
-            {
-                result += $"{p}\n\n";
-            }
-
-            return result;
+            var products = productRepository.GetAll();                        
+            return View(products);
         }
 
         public IActionResult Privacy()

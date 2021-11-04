@@ -25,7 +25,6 @@ namespace Stepik_ASP_Core_MVC_course
             services.AddControllersWithViews();
         }
 
-
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseStaticFiles();   // dir wwwroot
@@ -36,11 +35,7 @@ namespace Stepik_ASP_Core_MVC_course
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
-
-               //endpoints.MapControllerRoute(
-               //    name: "calc",
-               //pattern: "{controller=Home}/{action=Index}/{a?}/{b?}/{str?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");                               
             });
         }
     }
