@@ -11,11 +11,11 @@ namespace Stepik_ASP_Core_MVC_course.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ProductRepository productRepository;
+        private readonly ProductsRepository productRepository;
 
         public HomeController()
         {
-            productRepository = new ProductRepository();
+            productRepository = new ProductsRepository();
         }
         
         public IActionResult Index()

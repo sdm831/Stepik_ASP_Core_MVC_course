@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Stepik_ASP_Core_MVC_course
 {
-    public class ProductRepository
+    public class ProductsRepository
     {
         private static List<Product> products = new List<Product>()
         {
@@ -21,6 +21,7 @@ namespace Stepik_ASP_Core_MVC_course
         {
             return products;
         }
+        
         internal Product TryGetById(int id)
         {
             return products.FirstOrDefault(product => product.ProductId == id);
