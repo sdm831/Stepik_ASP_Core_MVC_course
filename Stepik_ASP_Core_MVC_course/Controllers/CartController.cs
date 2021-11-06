@@ -24,7 +24,7 @@ namespace Stepik_ASP_Core_MVC_course.Controllers
         public IActionResult Add(int productId)
         {
             var product = productRepository.TryGetById(productId);
-            CartsRepository.Add(product);
+            CartsRepository.Add(product, UsersRepository.UserId);
             return RedirectToAction("Index");
         }
     }

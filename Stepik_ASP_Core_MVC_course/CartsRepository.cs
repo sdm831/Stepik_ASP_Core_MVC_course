@@ -39,13 +39,18 @@ namespace Stepik_ASP_Core_MVC_course
             else
             {
                 var existingCartItem = existingCart.Items.FirstOrDefault(x => x.Product.ProductId == product.ProductId);
-                if(existingCart != null)
+                if(existingCartItem != null)
                 {
                     existingCartItem.Amount += 1;
                 }
                 else
                 {
-
+                    existingCart.Items.Add(new CartItem
+                    {
+                        Id = Guid.NewGuid(),
+                        Amount = 1,
+                        Product = product
+                    });
                 }
             }
         }
