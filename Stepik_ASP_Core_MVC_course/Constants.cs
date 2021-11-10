@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Stepik_ASP_Core_MVC_course
 {
-    public static class UsersRepository
+    public static class Constants
     {
         public static string UserId = "UserId";
     }

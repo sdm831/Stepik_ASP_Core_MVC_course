@@ -19,23 +19,34 @@ namespace Stepik_ASP_Core_MVC_course.Controllers
         
         public IActionResult Index()
         {
-            var cart = cartsRepository.TryGetByUserId(UsersRepository.UserId);
+            var cart = cartsRepository.TryGetByUserId(Constants.UserId);
             return View(cart);
         }
 
         public IActionResult Add(int productId)
         {
             var product = productRepository.TryGetById(productId);
-            cartsRepository.Add(product, UsersRepository.UserId);
+            cartsRepository.Add(product, Constants.UserId);
             return RedirectToAction("Index");
         }
 
         public IActionResult DecreaseAmount(int productId)
         {
-            cartsRepository.DecreaseAmount(product, UsersRepository.UserId);
+            cartsRepository.DecreaseAmount(productId, Constants.UserId);
             return RedirectToAction("Index");
         }
         
+        public IActionResult DelItem(int productId)
+        {
+            cartsRepository.DelItem(productId, Constants.UserId);
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult ClearCart()
+        {
+            cartsRepository.ClearCart(Constants.UserId);
+            return RedirectToAction("Index");
+        }
 
     }
 }

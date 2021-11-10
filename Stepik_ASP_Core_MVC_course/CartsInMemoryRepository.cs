@@ -41,7 +41,7 @@ namespace Stepik_ASP_Core_MVC_course
                 var existingCartItem = existingCart.Items.FirstOrDefault(x => x.Product.Id == product.Id);
                 if (existingCartItem != null)
                 {
-                    existingCartItem.Amount += 1;
+                    existingCartItem.Amount++;
                 }
                 else
                 {
@@ -55,9 +55,36 @@ namespace Stepik_ASP_Core_MVC_course
             }
         }
 
-        public void DecreaseAmount(object product, string userId)
+        public void DecreaseAmount(int productId, string userId)
         {
-            throw new NotImplementedException();
+            var existingCart = TryGetByUserId(userId);
+            var existingCartItem = existingCart?.Items?.FirstOrDefault(x => x.Product.Id == productId);
+
+            if (existingCartItem == null)
+            {
+                return;
+            }
+
+            existingCartItem.Amount--;
+
+            if (existingCartItem.Amount == 0)
+            {
+                existingCart.Items.Remove(existingCartItem);
+            }
         }
+        
+        public void DelItem(int productId, string userId)
+        {
+            var existingCart = TryGetByUserId(userId);
+            var existingCartItem = existingCart?.Items?.FirstOrDefault(x => x.Product.Id == productId);
+            existingCart.Items.Remove(existingCartItem);
+        }
+
+        public void ClearCart(string userId)
+        {
+            var existingCart = TryGetByUserId(userId);
+            carts.Remove(existingCart);
+        }
+
     }
 }

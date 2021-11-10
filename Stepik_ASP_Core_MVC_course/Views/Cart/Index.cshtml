@@ -3,7 +3,7 @@
     ViewData["Title"] = "Корзина";
 }
 
-@if(Model == null)
+@if(Model == null || Model.Items.Count == 0)
 {
     <h3>Корзина пуста</h3>
 }
@@ -31,7 +31,8 @@ else
                         <td>@item.Cost</td>
                         <td>
                             <a class="btn btn-success" href="/cart/add?productId=@item.Product.Id" role="button">+</a>
-                            <a class="btn btn-success" href="/cart/decreaseAmount?productId=@item.Product.Id" role="button">-</a>
+                            <a class="btn btn-info" href="/cart/decreaseAmount?productId=@item.Product.Id" role="button">-</a>
+                            <a class="btn btn-danger" href="/cart/delItem?productId=@item.Product.Id" role="button">Del</a>
                         </td>
                     </tr>
                 }
@@ -42,7 +43,8 @@ else
         </div>
         <div class="text-center">
             <a class="btn btn-success" href="/home/index" role="button">Продолжить покупки</a>
-            <a class="btn btn-danger" href="#" role="button">Оформить заказ</a>
+            <a class="btn btn-primary" href="#" role="button">Оформить заказ</a>            
+            <a class="btn btn-danger" href="/cart/clearCart" role="button">Очистить корзину</a>
         </div>
     </div>
 </div>
