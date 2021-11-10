@@ -8,24 +8,34 @@ namespace Stepik_ASP_Core_MVC_course.Controllers
 {
     public class CartController : Controller
     {
-        private readonly ProductsRepository productRepository;
+        private readonly IProductsRepository productRepository;
+        private readonly ICartsRepository cartsRepository;
 
-        public CartController()
+        public CartController(IProductsRepository productRepository, ICartsRepository cartsRepository)
         {
-            productRepository = new ProductsRepository();
+            this.productRepository = productRepository;
+            this.cartsRepository = cartsRepository;
         }
-
+        
         public IActionResult Index()
         {
-            var cart = CartsRepository.TryGetByUserId(UsersRepository.UserId);
+            var cart = cartsRepository.TryGetByUserId(UsersRepository.UserId);
             return View(cart);
         }
 
         public IActionResult Add(int productId)
         {
             var product = productRepository.TryGetById(productId);
-            CartsRepository.Add(product, UsersRepository.UserId);
+            cartsRepository.Add(product, UsersRepository.UserId);
             return RedirectToAction("Index");
         }
+
+        public IActionResult DecreaseAmount(int productId)
+        {
+            cartsRepository.DecreaseAmount(product, UsersRepository.UserId);
+            return RedirectToAction("Index");
+        }
+        
+
     }
 }

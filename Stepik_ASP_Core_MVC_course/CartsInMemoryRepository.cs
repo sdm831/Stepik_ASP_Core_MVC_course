@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace Stepik_ASP_Core_MVC_course
 {
-    public static class CartsRepository
+    public class CartsInMemoryRepository : ICartsRepository
     {
-        private static List<Cart> carts = new List<Cart>();
+        private List<Cart> carts = new List<Cart>();
 
-        internal static Cart TryGetByUserId(string userId)
+        public Cart TryGetByUserId(string userId)
         {
             return carts.FirstOrDefault(x => x.UserId == userId);
         }
 
-        internal static void Add(Product product, string userId)
+        public void Add(Product product, string userId)
         {
             var existingCart = TryGetByUserId(userId);
             if (existingCart == null)
@@ -38,8 +38,8 @@ namespace Stepik_ASP_Core_MVC_course
             }
             else
             {
-                var existingCartItem = existingCart.Items.FirstOrDefault(x => x.Product.ProductId == product.ProductId);
-                if(existingCartItem != null)
+                var existingCartItem = existingCart.Items.FirstOrDefault(x => x.Product.Id == product.Id);
+                if (existingCartItem != null)
                 {
                     existingCartItem.Amount += 1;
                 }
@@ -53,6 +53,11 @@ namespace Stepik_ASP_Core_MVC_course
                     });
                 }
             }
+        }
+
+        public void DecreaseAmount(object product, string userId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

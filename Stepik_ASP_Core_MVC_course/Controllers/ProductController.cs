@@ -8,11 +8,11 @@ namespace Stepik_ASP_Core_MVC_course.Controllers
 {
     public class ProductController : Controller
     {
-        private readonly ProductsRepository productRepository;
+        private readonly IProductsRepository productRepository;
 
-        public ProductController()
+        public ProductController(IProductsRepository productRepository)
         {
-            productRepository = new ProductsRepository();
+            this.productRepository = productRepository;
         }
 
         public IActionResult Index(int id)

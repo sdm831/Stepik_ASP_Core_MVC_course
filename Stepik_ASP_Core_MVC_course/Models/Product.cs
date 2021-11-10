@@ -11,14 +11,14 @@ namespace Stepik_ASP_Core_MVC_course.Models
         
         private static int idGenerator = 1;
 
-        public int ProductId { get; }
+        public int Id { get; }
         public string Name { get; }
         public decimal Cost { get; }
         public string Description { get; }
         public string ImagePath { get; }
         public Product(string name, int cost, string description, string imagePath)
         {
-            ProductId = idGenerator;
+            Id = idGenerator;
             Name = name;
             Cost = cost;
             Description = description;
@@ -29,7 +29,7 @@ namespace Stepik_ASP_Core_MVC_course.Models
 
         public override string ToString()
         {
-            return $"{ProductId}\n{Name}\n{Cost}";
+            return $"{Id}\n{Name}\n{Cost}";
         }
     }
 }

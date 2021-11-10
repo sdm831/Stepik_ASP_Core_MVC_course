@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Stepik_ASP_Core_MVC_course
 {
-    public class ProductsRepository
+    public class ProductsInMemoryRepository : IProductsRepository
     {
-        private static List<Product> products = new List<Product>()
+        private List<Product> products = new List<Product>()
         {
             new Product("cement",  300, "Лучший цемент.",  "/images/cement.jpg") { },
             new Product("kraska",  800, "Яркая краска.",   "/images/kraska.jpg") { },
@@ -21,10 +21,10 @@ namespace Stepik_ASP_Core_MVC_course
         {
             return products;
         }
-        
-        internal Product TryGetById(int id)
+
+        public Product TryGetById(int id)
         {
-            return products.FirstOrDefault(product => product.ProductId == id);
+            return products.FirstOrDefault(product => product.Id == id);
         }
     }
 }

@@ -18,6 +18,7 @@ else
                     <th>Цена, руб</th>
                     <th>Количество</th>
                     <th>Стоимость, руб</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -28,6 +29,10 @@ else
                         <td>@item.Product.Cost</td>
                         <td>@item.Amount</td>
                         <td>@item.Cost</td>
+                        <td>
+                            <a class="btn btn-success" href="/cart/add?productId=@item.Product.Id" role="button">+</a>
+                            <a class="btn btn-success" href="/cart/decreaseAmount?productId=@item.Product.Id" role="button">-</a>
+                        </td>
                     </tr>
                 }
             </tbody>
