@@ -12,14 +12,18 @@ namespace Stepik_ASP_Core_MVC_course.Controllers
     public class HomeController : Controller
     {
         private readonly IProductsRepository productRepository;
+        private readonly ICartsRepository cartsRepository;
 
-        public HomeController(IProductsRepository productRepository)
+        public HomeController(IProductsRepository productRepository, ICartsRepository cartsRepository)
         {
             this.productRepository = productRepository;
+            this.cartsRepository = cartsRepository;
         }
 
         public IActionResult Index()
-        {            
+        {
+            var cart = cartsRepository.TryGetByUserId(Constants.UserId);
+            ViewBag.ProductCount = cart?.Amount;
             var products = productRepository.GetAll();                        
             return View(products);
         }

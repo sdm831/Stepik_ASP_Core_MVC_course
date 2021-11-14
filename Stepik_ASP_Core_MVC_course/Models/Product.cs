@@ -6,9 +6,7 @@ using System.Threading.Tasks;
 namespace Stepik_ASP_Core_MVC_course.Models
 {
     public class Product
-    {
-        
-        
+    {        
         private static int idGenerator = 1;
 
         public int Id { get; }

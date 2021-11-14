@@ -1,4 +1,5 @@
-﻿
+﻿@model List<CartItem>
+
 @{
     ViewData["Title"] = "Order";
 }
@@ -7,3 +8,10 @@
 
 <h3>Спасибо за покупку!</h3>
 <h5>Ваш заказ: @rnd.Next(1111, 9999)</h5>
+
+@{
+    @foreach (var v in Model)
+    {
+         <h6>@v.Product.Name</h6>
+    }
+    }

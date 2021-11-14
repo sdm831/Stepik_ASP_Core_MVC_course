@@ -1,31 +1,38 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Order";
 }
 
-<div class="row">
-    <div class="col">
-        <label>Введите ФИО</label>
-        <input type="text" />
+<form method="post">
+    <div class="row">
+        <div class="col-2">
+            <label>Введите ФИО</label>            
+        </div>
+        <div class="col-3">            
+            <input type="text" name="userName" />
+        </div>
     </div>
-</div>
 
-<div class="row">
-    <div class="col">
-        <label>Адрес доставки</label>
-        <input type="text" />
+    <div class="row">
+        <div class="col-2">
+            <label>Адрес доставки</label>            
+        </div>
+        <div class="col-3">            
+            <input type="text" name="userAdress" />
+        </div>
     </div>
-</div>
 
-<div class="row">
-    <div class="col">
-        <label>Контактный телефон</label>
-        <input type="text" />
+    <div class="row">
+        <div class="col-2">
+            <label>Контактный телефон</label>            
+        </div>
+        <div class="col-3">       
+            <input type="text" name="userPhone" />
+        </div>
     </div>
-</div>
 
-<div class="row">
-    <div class="col">
-        <a class="btn btn-success" href="/order/buy" role="button">Оформить заказ</a>
+    <div class="row">
+        <div class="col">
+            <button class="btn btn-success" type="submit" asp-controller="Order" asp-action="Buy" >Оформить заказ</button>            
+        </div>
     </div>
-</div>
+</form>

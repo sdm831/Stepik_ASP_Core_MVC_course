@@ -14,7 +14,15 @@ namespace Stepik_ASP_Core_MVC_course.Models
         {
             get
             {
-                return Items.Sum(x => x.Cost);
+                return Items?.Sum(x => x.Cost) ?? 0;
+            }
+        }
+
+        public decimal Amount
+        {
+            get
+            {
+                return Items?.Sum(x => x.Amount) ?? 0;
             }
         }
     }
