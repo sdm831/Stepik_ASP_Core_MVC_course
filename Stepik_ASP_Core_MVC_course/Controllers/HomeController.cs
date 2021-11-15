@@ -1,11 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Stepik_ASP_Core_MVC_course.Models;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Stepik_ASP_Core_MVC_course.Controllers
 {
@@ -22,8 +17,7 @@ namespace Stepik_ASP_Core_MVC_course.Controllers
 
         public IActionResult Index()
         {
-            var cart = cartsRepository.TryGetByUserId(Constants.UserId);
-            //ViewBag.ProductCount = cart?.Amount;
+            var cart = cartsRepository.TryGetByUserId(Constants.UserId);            
             var products = productRepository.GetAll();                        
             return View(products);
         }

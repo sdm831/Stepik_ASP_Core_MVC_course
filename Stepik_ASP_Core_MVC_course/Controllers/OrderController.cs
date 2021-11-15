@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Stepik_ASP_Core_MVC_course.Models;
-using System;
 
 namespace Stepik_ASP_Core_MVC_course.Controllers
 {
@@ -19,13 +18,22 @@ namespace Stepik_ASP_Core_MVC_course.Controllers
         {
             return View();
         }
+
         [HttpPost]
-        public IActionResult Buy(Order order)
+        public IActionResult Buy(UserDeliveryInfo user)
         {
             var existingCart = cartsRepository.TryGetByUserId(Constants.UserId);
-            ordersRepository.Add(existingCart);
-            cartsRepository.ClearCart(Constants.UserId);
-            return View(existingCart.Items);
+            
+            var order = new Order
+            {
+                User = user,
+                Items = existingCart.Items
+            };
+
+            ordersRepository.Add(order);
+            
+            cartsRepository.Clear(Constants.UserId);
+            return View();
         }
     }
 }
