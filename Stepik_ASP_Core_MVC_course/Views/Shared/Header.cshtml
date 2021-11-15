@@ -11,7 +11,7 @@
                     <li class="nav-item">                        
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Cart" asp-action="Index">Корзина @ViewBag.ProductCount</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Cart" asp-action="Index">Корзина @await Component.InvokeAsync("Cart")</a>
                     </li>
                 </ul>
             </div>

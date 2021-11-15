@@ -23,7 +23,7 @@ namespace Stepik_ASP_Core_MVC_course.Controllers
         public IActionResult Index()
         {
             var cart = cartsRepository.TryGetByUserId(Constants.UserId);
-            ViewBag.ProductCount = cart?.Amount;
+            //ViewBag.ProductCount = cart?.Amount;
             var products = productRepository.GetAll();                        
             return View(products);
         }

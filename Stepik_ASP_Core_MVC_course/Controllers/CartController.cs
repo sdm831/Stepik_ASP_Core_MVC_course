@@ -10,7 +10,7 @@ namespace Stepik_ASP_Core_MVC_course.Controllers
     {
         private readonly IProductsRepository productRepository;
         private readonly ICartsRepository cartsRepository;
-
+        
         public CartController(IProductsRepository productRepository, ICartsRepository cartsRepository)
         {
             this.productRepository = productRepository;
@@ -20,6 +20,7 @@ namespace Stepik_ASP_Core_MVC_course.Controllers
         public IActionResult Index()
         {
             var cart = cartsRepository.TryGetByUserId(Constants.UserId);
+            //ViewBag.ProductCount = cart?.Amount;            
             return View(cart);
         }
 
