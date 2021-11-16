@@ -15,5 +15,16 @@ namespace Stepik_ASP_Core_MVC_course.Controllers
         {
             return RedirectToAction("Index", "Home");
         }
+
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Register(Register register)
+        {
+            return RedirectToAction("Index", "Home");
+        }
     }
 }
