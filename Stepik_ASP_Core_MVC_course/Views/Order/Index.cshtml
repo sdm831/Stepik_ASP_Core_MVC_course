@@ -1,38 +1,47 @@
-﻿@{
+﻿@model UserDeliveryInfo
+@{
     ViewData["Title"] = "Order";
 }
 
 <form method="post">
-    <div class="row">
+
+    <div class="text-danger font-weight-bold" asp-validation-summary="All"></div>
+
+    <div class="row text-center">
         <div class="col-2">
-            <label>Введите ФИО</label>            
+            <label asp-for="UserName">Введите ФИО</label>
         </div>
-        <div class="col-3">            
-            <input type="text" name="userName" />
+        <div class="col-3">
+            <input class="form-control" asp-for="UserName" />
+            <span asp-validation-for="UserName" />
         </div>
     </div>
 
-    <div class="row">
+    <div class="row text-center">
         <div class="col-2">
-            <label>Адрес доставки</label>            
+            <label asp-for="UserAdress">Адрес доставки</label>
         </div>
-        <div class="col-3">            
-            <input type="text" name="userAdress" />
+        <div class="col-3">
+            <input class="form-control" asp-for="UserAdress" />
+            <span asp-validation-for="UserAdress" />
         </div>
     </div>
 
-    <div class="row">
+    <div class="row text-center">
         <div class="col-2">
-            <label>Контактный телефон</label>            
+            <label asp-for="UserPhone">Контактный телефон</label>
         </div>
-        <div class="col-3">       
-            <input type="text" name="userPhone" />
+        <div class="col-3">
+            <input class="form-control" asp-for="UserPhone" />
+            <span asp-validation-for="UserPhone" />
         </div>
     </div>
+    
+    <br />
 
     <div class="row">
         <div class="col">
-            <button class="btn btn-success" type="submit" asp-controller="Order" asp-action="Buy">Оформить заказ</button>            
+            <button class="btn btn-success" type="submit" asp-controller="Order" asp-action="Buy">Оформить заказ</button>
         </div>
     </div>
 </form>

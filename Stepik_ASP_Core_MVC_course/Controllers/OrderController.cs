@@ -22,6 +22,11 @@ namespace Stepik_ASP_Core_MVC_course.Controllers
         [HttpPost]
         public IActionResult Buy(UserDeliveryInfo user)
         {
+            if (!ModelState.IsValid)
+            {
+                return View("Index", user);
+            }
+            
             var existingCart = cartsRepository.TryGetByUserId(Constants.UserId);
             
             var order = new Order

@@ -7,5 +7,8 @@ namespace Stepik_ASP_Core_MVC_course
     {
         List<Product> GetAll();
         Product TryGetById(int id);
+        void Add(Product product);
+        void Update(Product product);
+        void RemoveProduct(int productId);
     }
 }

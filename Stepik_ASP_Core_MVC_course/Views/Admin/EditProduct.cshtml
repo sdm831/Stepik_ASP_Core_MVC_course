@@ -1,0 +1,54 @@
+﻿@model Product
+
+<form method="post">
+    <h3>Изменение продукта</h3>
+
+    <div class="text-danger font-weight-bold" asp-validation-summary="All"></div>
+
+    <input type="hidden" name="Id" value="@Model?.Id" />
+
+    <div class="row">
+        <div class="col-3">
+            <label asp-for="Name">Название продукта</label>
+        </div>
+        <div class="col-3">
+            <input class="form-control" asp-for="Name" value="@Model?.Name"/>
+            <span asp-validation-for="Name" />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-3">
+            <label asp-for="Description">Описание</label>
+        </div>
+        <div class="col-3">
+            <input class="form-control" asp-for="Description" value="@Model?.Description"/>
+            <span asp-validation-for="Description" />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-3">
+            <label asp-for="Cost">Цена</label>
+        </div>
+        <div class="col-3">
+            <input type="number" class="form-control" asp-for="Cost" value="@Model?.Cost"/>
+            <span asp-validation-for="Cost" />
+        </div>
+    </div>
+
+    @*<div class="row">
+        <div class="col-3">
+            <label asp-for="ImagePath">Ссылка на изображение</label>
+        </div>
+        <div class="col-3">
+            <input class="form-control" asp-for="ImagePath" />
+            <span asp-validation-for="ImagePath" />
+        </div>
+    </div>*@
+
+    <div>
+        <button class="btn btn-success" type="submit" asp-controller="Admin" asp-action="EditProduct">Сохранить</button>
+    </div>
+</form>
+
