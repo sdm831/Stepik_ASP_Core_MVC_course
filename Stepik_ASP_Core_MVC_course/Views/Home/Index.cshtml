@@ -4,16 +4,25 @@
 }
 
 <div class="row">
-    @foreach (var item in Model)
+    @foreach (var product in Model)
     {
         <div class="col-3 card shadow">
-            <img class="card-img-top" src="@item.ImagePath" alt="Изображение товара" />
+            <img class="card-img-top" src="@product.ImagePath" alt="Изображение товара" />
             <div class="card-body">
-                <a style="color:black" href="/product/index/@item.Id">
-                    <h5>@item.Name</h5>
+                <a style="color:black" 
+                   asp-area=""
+                   asp-controller="Product"
+                   asp-action="Index"
+                   asp-route-id="@product.Id" >                  
+                    <h5>@product.Name</h5>
                 </a>
-                <h5>@item.Cost руб</h5>
-                <a class="btn btn-primary" href="/cart/add?productId=@item.Id" role="button">Добавить в корзину</a>
+                <h5>@product.Cost руб</h5>
+                <a class="btn btn-primary" 
+                   asp-area=""
+                   asp-controller="Cart"
+                   asp-action="Add"
+                   asp-route-productId="@product.Id"
+                   role="button">Добавить в корзину</a>
             </div>        
         </div>        
     }

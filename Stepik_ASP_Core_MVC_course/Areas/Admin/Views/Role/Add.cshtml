@@ -1,4 +1,4 @@
-﻿@model Role
+﻿@model Role 
 
     <form method="post">
         <h3>Создание новой роли</h3>
@@ -16,6 +16,6 @@
         </div>
                 
         <div>
-            <button class="btn btn-success" type="submit" asp-controller="Admin" asp-action="AddRole">Создать</button>
+            <button class="btn btn-success" type="submit" asp-area="Admin" asp-controller="Role" asp-action="Add">Создать</button>
         </div>
     </form>

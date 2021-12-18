@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Stepik_ASP_Core_MVC_course.Models
+namespace Stepik_ASP_Core_MVC_course.Areas.Admin.Models
 {
     public class Role
     {

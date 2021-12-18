@@ -17,25 +17,19 @@ namespace Stepik_ASP_Core_MVC_course
             new Product("shpatel", 200, "Ровный шпатель.", "/images/shpatel.jpg") { }
         };
 
-        public void Add(Product product)
-        {            
-            product.ImagePath = "https://static9.depositphotos.com/1674252/1149/v/950/depositphotos_11495781-stock-illustration-wavy-new-sign.jpg";
-            products.Add(product);
-        }
-
         public List<Product> GetAll()
         {
             return products;
         }
-
-        public void RemoveProduct(int productId)
-        {
-            products.Remove(products.FirstOrDefault(p => p.Id == productId));
-        }
-
         public Product TryGetById(int id)
         {
             return products.FirstOrDefault(product => product.Id == id);
+        }
+
+        public void Add(Product product)
+        {            
+            product.ImagePath = "https://static9.depositphotos.com/1674252/1149/v/950/depositphotos_11495781-stock-illustration-wavy-new-sign.jpg";
+            products.Add(product);
         }
 
         public void Update(Product product)
@@ -50,6 +44,11 @@ namespace Stepik_ASP_Core_MVC_course
             existingProduct.Description = product.Description;
             existingProduct.Cost = product.Cost;
             //existingProduct.ImagePath = product.ImagePath;
+        }
+
+        public void RemoveProduct(int productId)
+        {
+            products.Remove(products.FirstOrDefault(p => p.Id == productId));
         }
     }
 }

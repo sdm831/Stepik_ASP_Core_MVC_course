@@ -41,6 +41,10 @@ namespace Stepik_ASP_Core_MVC_course
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
+                    name: "Area",
+                    pattern: "{area:exists}/{controller=home}/{action=Index}/{id?}");
+                
+                endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");                               
             });

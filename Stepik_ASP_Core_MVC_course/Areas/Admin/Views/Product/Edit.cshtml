@@ -36,19 +36,9 @@
             <span asp-validation-for="Cost" />
         </div>
     </div>
-
-    @*<div class="row">
-        <div class="col-3">
-            <label asp-for="ImagePath">Ссылка на изображение</label>
-        </div>
-        <div class="col-3">
-            <input class="form-control" asp-for="ImagePath" />
-            <span asp-validation-for="ImagePath" />
-        </div>
-    </div>*@
-
+    
     <div>
-        <button class="btn btn-success" type="submit" asp-controller="Admin" asp-action="EditProduct">Сохранить</button>
+        <button class="btn btn-success" type="submit" asp-area="Admin" asp-controller="Product" asp-action="Edit">Сохранить</button>
     </div>
 </form>
 

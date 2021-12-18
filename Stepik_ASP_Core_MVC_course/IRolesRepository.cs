@@ -1,4 +1,4 @@
-﻿using Stepik_ASP_Core_MVC_course.Models;
+﻿using Stepik_ASP_Core_MVC_course.Areas.Admin.Models;
 using System.Collections.Generic;
 
 namespace Stepik_ASP_Core_MVC_course

@@ -9,7 +9,7 @@ namespace Stepik_ASP_Core_MVC_course.Models
         public string UserName { get; set; }
 
         [Required]
-        [StringLength(100, MinimumLength = 4, ErrorMessage = "неправильная длина")]                
+        [StringLength(100, MinimumLength = 4, ErrorMessage = "неправильная длина")]
         public string Password { get; set; }
 
         [Required]
