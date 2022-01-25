@@ -23,7 +23,7 @@ namespace Stepik_ASP_Core_MVC_course.Areas.Admin.Controllers
             return View(ordersRepository.GetAll());
         }
 
-        public IActionResult Details(Guid orderId)
+        public IActionResult Detail(Guid orderId)
         {
             return View(ordersRepository.TryGetById(orderId));
         }

@@ -1,14 +1,10 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+using OnlineShop.db;
 using Serilog;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Stepik_ASP_Core_MVC_course
 {
@@ -23,10 +19,15 @@ namespace Stepik_ASP_Core_MVC_course
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IProductsRepository, ProductsInMemoryRepository>();
+            string connection = Configuration.GetConnectionString("online_shop");
+            services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(connection));
+            
+            services.AddTransient<IProductsRepository, ProductsDbRepository>();
+
             services.AddSingleton<ICartsRepository, CartsInMemoryRepository>();
             services.AddSingleton<IOrdersRepository, OrdersInMemoryRepository>();
             services.AddSingleton<IRolesRepository, RolesInMemoryRepository>();
+            services.AddSingleton<IUsersManager, UsersManager>();
             services.AddControllersWithViews();
         }
 

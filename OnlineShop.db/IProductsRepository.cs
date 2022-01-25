@@ -1,14 +1,15 @@
-﻿using Stepik_ASP_Core_MVC_course.Models;
+﻿using OnlineShop.db.Models;
+using System;
 using System.Collections.Generic;
 
-namespace Stepik_ASP_Core_MVC_course
+namespace OnlineShop.db
 {
     public interface IProductsRepository
     {
         List<Product> GetAll();
-        Product TryGetById(int id);
+        Product TryGetById(Guid id);
         void Add(Product product);
         void Update(Product product);
-        void RemoveProduct(int productId);
+        void RemoveProduct(Guid productId);
     }
 }

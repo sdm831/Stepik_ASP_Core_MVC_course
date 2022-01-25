@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using OnlineShop.db;
+using System;
 
 namespace Stepik_ASP_Core_MVC_course.Controllers
 {
@@ -19,20 +21,20 @@ namespace Stepik_ASP_Core_MVC_course.Controllers
             return View(cart);
         }
 
-        public IActionResult Add(int productId)
+        public IActionResult Add(Guid productId)
         {
             var product = productRepository.TryGetById(productId);
-            cartsRepository.Add(product, Constants.UserId);
+            //cartsRepository.Add(product, Constants.UserId);
             return RedirectToAction("Index");
         }
 
-        public IActionResult DecreaseAmount(int productId)
+        public IActionResult DecreaseAmount(Guid productId)
         {
             cartsRepository.DecreaseAmount(productId, Constants.UserId);
             return RedirectToAction("Index");
         }
         
-        public IActionResult DelItem(int productId)
+        public IActionResult DelItem(Guid productId)
         {
             cartsRepository.DelItem(productId, Constants.UserId);
             return RedirectToAction("Index");

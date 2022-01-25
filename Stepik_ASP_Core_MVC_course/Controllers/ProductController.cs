@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using OnlineShop.db;
+using System;
 
 namespace Stepik_ASP_Core_MVC_course.Controllers
 {
@@ -11,7 +13,7 @@ namespace Stepik_ASP_Core_MVC_course.Controllers
             this.productRepository = productRepository;
         }
 
-        public IActionResult Index(int id)
+        public IActionResult Index(Guid id)
         {
             var product = productRepository.TryGetById(id);            
             return View(product);

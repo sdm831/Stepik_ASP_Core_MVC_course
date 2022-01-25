@@ -15,7 +15,7 @@ namespace Stepik_ASP_Core_MVC_course
             return carts.FirstOrDefault(x => x.UserId == userId);
         }
 
-        public void Add(Product product, string userId)
+        public void Add(ProductViewModel product, string userId)
         {
             var existingCart = TryGetByUserId(userId);
             if (existingCart == null)
@@ -55,7 +55,7 @@ namespace Stepik_ASP_Core_MVC_course
             }
         }
 
-        public void DecreaseAmount(int productId, string userId)
+        public void DecreaseAmount(Guid productId, string userId)
         {
             var existingCart = TryGetByUserId(userId);
             var existingCartItem = existingCart?.Items?.FirstOrDefault(x => x.Product.Id == productId);
@@ -73,7 +73,7 @@ namespace Stepik_ASP_Core_MVC_course
             }
         }
         
-        public void DelItem(int productId, string userId)
+        public void DelItem(Guid productId, string userId)
         {
             var existingCart = TryGetByUserId(userId);
             var existingCartItem = existingCart?.Items?.FirstOrDefault(x => x.Product.Id == productId);

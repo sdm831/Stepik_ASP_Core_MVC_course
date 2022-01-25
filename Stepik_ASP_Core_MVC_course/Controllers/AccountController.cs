@@ -1,10 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Stepik_ASP_Core_MVC_course.Areas.Admin.Models;
 using Stepik_ASP_Core_MVC_course.Models;
 
 namespace Stepik_ASP_Core_MVC_course.Controllers
 {
     public class AccountController : Controller
     {
+        private readonly IUsersManager usersManager;
+
+        public AccountController(IUsersManager usersManager)
+        {
+            this.usersManager = usersManager;
+        }
+
         public IActionResult Login()
         {
             return View();
@@ -13,12 +21,25 @@ namespace Stepik_ASP_Core_MVC_course.Controllers
         [HttpPost]
         public IActionResult Login(Login login)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction(nameof(login));
             }
 
-            return RedirectToAction("Login");
+            var userAccount = usersManager.TryGetByName(login.UserName);
+            if (userAccount == null)
+            {
+                ModelState.AddModelError("", "Такого пользователя не существует!");
+                return RedirectToAction(nameof(login));
+            }
+
+            if (userAccount.Password != login.Password)
+            {
+                ModelState.AddModelError("", "Неправильный пароль!");
+                return RedirectToAction(nameof(login));
+            }
+
+            return RedirectToAction(nameof(HomeController.Index), nameof(HomeController).Replace("Controller", ""));
         }
 
         public IActionResult Register()
@@ -36,10 +57,17 @@ namespace Stepik_ASP_Core_MVC_course.Controllers
             
             if (ModelState.IsValid)
             {
-                return RedirectToAction("Index", "Home");
+                usersManager.Add(new UserAccount
+                {
+                    Name = register.UserName,
+                    Password = register.Password,
+                    Phone = register.Phone
+                });
+                
+                return RedirectToAction(nameof(HomeController.Index), nameof(HomeController).Replace("Controller", ""));
             }
 
-            return RedirectToAction("Register");
+            return RedirectToAction(nameof(Register));
         }
     }
 }
