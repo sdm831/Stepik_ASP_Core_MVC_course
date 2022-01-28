@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using OnlineShop.db;
+using Stepik_ASP_Core_MVC_course.Helpers;
 using Stepik_ASP_Core_MVC_course.Models;
 
 namespace Stepik_ASP_Core_MVC_course.Controllers
@@ -28,11 +30,13 @@ namespace Stepik_ASP_Core_MVC_course.Controllers
             }
             
             var existingCart = cartsRepository.TryGetByUserId(Constants.UserId);
-            
+
+            var existingCartViewModel = existingCart.ToCartViewModel();
+
             var order = new Order
             {
                 User = user,
-                Items = existingCart.Items
+                Items = existingCartViewModel.Items
             };
 
             ordersRepository.Add(order);

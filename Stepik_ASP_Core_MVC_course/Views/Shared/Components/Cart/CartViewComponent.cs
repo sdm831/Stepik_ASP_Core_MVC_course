@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using OnlineShop.db;
+using Stepik_ASP_Core_MVC_course.Helpers;
 
 namespace Stepik_ASP_Core_MVC_course.Views.Shared.Components.Cart
 {
@@ -14,7 +16,10 @@ namespace Stepik_ASP_Core_MVC_course.Views.Shared.Components.Cart
         public IViewComponentResult Invoke()
         {
             var cart = cartsRepository.TryGetByUserId(Constants.UserId);
-            var productCounts = cart?.Amount ?? 0;
+
+            var cartViewModel = cart.ToCartViewModel();
+
+            var productCounts = cartViewModel?.Amount ?? 0;
 
             return View("Cart", productCounts);
         }

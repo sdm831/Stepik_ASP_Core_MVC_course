@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnlineShop.db;
+using Stepik_ASP_Core_MVC_course.Helpers;
 using System;
 
 namespace Stepik_ASP_Core_MVC_course.Controllers
@@ -16,7 +17,7 @@ namespace Stepik_ASP_Core_MVC_course.Controllers
         public IActionResult Index(Guid id)
         {
             var product = productRepository.TryGetById(id);            
-            return View(product);
+            return View(product.ToProductViewModel());
         }
     }
 }

@@ -23,8 +23,8 @@ namespace Stepik_ASP_Core_MVC_course
             services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(connection));
             
             services.AddTransient<IProductsRepository, ProductsDbRepository>();
+            services.AddTransient<ICartsRepository, CartsDbRepository>();
 
-            services.AddSingleton<ICartsRepository, CartsInMemoryRepository>();
             services.AddSingleton<IOrdersRepository, OrdersInMemoryRepository>();
             services.AddSingleton<IRolesRepository, RolesInMemoryRepository>();
             services.AddSingleton<IUsersManager, UsersManager>();

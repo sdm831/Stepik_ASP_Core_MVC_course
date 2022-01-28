@@ -56,7 +56,10 @@ namespace OnlineShop.db
 
         public void RemoveProduct(Guid productId)
         {
+            var test = databaseContext.Products.FirstOrDefault(p => p.Id == productId);
+            
             databaseContext.Products.Remove(databaseContext.Products.FirstOrDefault(p => p.Id == productId));
+            databaseContext.SaveChanges();
         }
     }
 }
