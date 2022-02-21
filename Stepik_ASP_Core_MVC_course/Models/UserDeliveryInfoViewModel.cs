@@ -2,7 +2,7 @@
 
 namespace Stepik_ASP_Core_MVC_course.Models
 {
-    public class UserDeliveryInfo
+    public class UserDeliveryInfoViewModel
     {
         [Required]
         public string UserName { get; set; }

@@ -1,8 +1,8 @@
-﻿using Stepik_ASP_Core_MVC_course.Models;
+﻿using OnlineShop.db.Models;
 using System;
 using System.Collections.Generic;
 
-namespace Stepik_ASP_Core_MVC_course
+namespace OnlineShop.db
 {
     public interface IOrdersRepository
     {

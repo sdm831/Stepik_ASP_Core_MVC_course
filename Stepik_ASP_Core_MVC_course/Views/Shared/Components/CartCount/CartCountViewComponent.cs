@@ -4,11 +4,11 @@ using Stepik_ASP_Core_MVC_course.Helpers;
 
 namespace Stepik_ASP_Core_MVC_course.Views.Shared.Components.Cart
 {
-    public class CartViewComponent : ViewComponent
+    public class CartCountViewComponent : ViewComponent
     {
         private readonly ICartsRepository cartsRepository;
 
-        public CartViewComponent(ICartsRepository cartsRepository)
+        public CartCountViewComponent(ICartsRepository cartsRepository)
         {
             this.cartsRepository = cartsRepository;
         }
@@ -17,11 +17,11 @@ namespace Stepik_ASP_Core_MVC_course.Views.Shared.Components.Cart
         {
             var cart = cartsRepository.TryGetByUserId(Constants.UserId);
 
-            var cartViewModel = cart.ToCartViewModel();
+            var cartViewModel = Mapping.ToCartViewModel(cart);
 
             var productCounts = cartViewModel?.Amount ?? 0;
 
-            return View("Cart", productCounts);
+            return View("CartCount", productCounts);
         }
     }
 }

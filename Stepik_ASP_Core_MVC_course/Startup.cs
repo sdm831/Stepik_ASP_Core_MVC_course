@@ -22,10 +22,11 @@ namespace Stepik_ASP_Core_MVC_course
             string connection = Configuration.GetConnectionString("online_shop");
             services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(connection));
             
-            services.AddTransient<IProductsRepository, ProductsDbRepository>();
-            services.AddTransient<ICartsRepository, CartsDbRepository>();
-
-            services.AddSingleton<IOrdersRepository, OrdersInMemoryRepository>();
+            services.AddTransient<IProductsRepository, DbRepositoryProducts>();
+            services.AddTransient<ICartsRepository,    DbRepositoryCarts>();
+            services.AddTransient<IOrdersRepository,   DbRepositoryOrders>();
+            services.AddTransient<IFavoriteRepository, DbRepositoryFavorite>();
+                        
             services.AddSingleton<IRolesRepository, RolesInMemoryRepository>();
             services.AddSingleton<IUsersManager, UsersManager>();
             services.AddControllersWithViews();
@@ -33,7 +34,7 @@ namespace Stepik_ASP_Core_MVC_course
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseStaticFiles();   // dir wwwroot
+            app.UseStaticFiles();   
 
             app.UseSerilogRequestLogging();
 

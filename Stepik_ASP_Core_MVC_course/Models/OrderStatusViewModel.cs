@@ -2,7 +2,7 @@
 
 namespace Stepik_ASP_Core_MVC_course.Models
 {
-    public enum OrderStatus
+    public enum OrderStatusViewModel
     {
         [Display(Name = "Создан")]
         Created,

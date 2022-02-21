@@ -19,7 +19,7 @@ namespace Stepik_ASP_Core_MVC_course.Controllers
         public IActionResult Index()
         {
             var cart = cartsRepository.TryGetByUserId(Constants.UserId);            
-            return View(cart.ToCartViewModel());            
+            return View(Mapping.ToCartViewModel(cart));            
         }
 
         public IActionResult Add(Guid productId)

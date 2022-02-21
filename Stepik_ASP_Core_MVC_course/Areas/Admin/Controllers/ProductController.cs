@@ -20,8 +20,8 @@ namespace Stepik_ASP_Core_MVC_course.Areas.Admin.Controllers
         
         public IActionResult Index()
         {
-            var products = productsRepository.GetAll();
-            return View(products.ToProductViewModels());                        
+            var productsDb = productsRepository.GetAll();
+            return View(Mapping.ToProductViewModels(productsDb));                        
         }
 
         public IActionResult Add()

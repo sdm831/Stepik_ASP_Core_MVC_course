@@ -6,21 +6,24 @@ using System.Linq;
 
 namespace OnlineShop.db
 {
-    public class CartsDbRepository : ICartsRepository
+    public class DbRepositoryCarts : ICartsRepository
     {
         private readonly DatabaseContext databaseContext;
 
-        public CartsDbRepository(DatabaseContext databaseContext)
+        public DbRepositoryCarts(DatabaseContext databaseContext)
         {
             this.databaseContext = databaseContext;
         }
 
         public Cart TryGetByUserId(string userId)
         {
-            return databaseContext.Carts
+            var t1 = databaseContext.Carts
                                     .Include(x => x.Items)
-                                    .ThenInclude(x => x.Product)
-                                    .FirstOrDefault(x => x.UserId == userId);
+                                    .ThenInclude(x => x.Product);
+
+            var t2 = t1.FirstOrDefault(x => x.UserId == userId);
+
+            return t2;
         }
 
         public void Add(Product product, string userId)
@@ -81,7 +84,7 @@ namespace OnlineShop.db
 
             if (existingCartItem.Amount == 0)
             {
-                existingCart.Items.Remove(existingCartItem);
+                databaseContext.CartItems.Remove(existingCartItem);                
             }
 
             databaseContext.SaveChanges();
@@ -91,7 +94,9 @@ namespace OnlineShop.db
         {
             var existingCart = TryGetByUserId(userId);
             var existingCartItem = existingCart?.Items?.FirstOrDefault(x => x.Product.Id == productId);
-            existingCart.Items.Remove(existingCartItem);
+            databaseContext.CartItems.Remove(existingCartItem);
+            databaseContext.SaveChanges();
+            //existingCart.Items.Remove(existingCartItem);
         }
 
         public void Clear(string userId)

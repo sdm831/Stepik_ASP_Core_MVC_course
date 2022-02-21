@@ -1,10 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Stepik_ASP_Core_MVC_course.Areas.Admin.Models;
+using OnlineShop.db;
+using OnlineShop.db.Models;
+using Stepik_ASP_Core_MVC_course.Helpers;
 using Stepik_ASP_Core_MVC_course.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Stepik_ASP_Core_MVC_course.Areas.Admin.Controllers
 {
@@ -20,7 +19,8 @@ namespace Stepik_ASP_Core_MVC_course.Areas.Admin.Controllers
 
         public IActionResult Index()
         {
-            return View(ordersRepository.GetAll());
+            var ordersDb = ordersRepository.GetAll();
+            return View(Mapping.ToOrdersViewModel(ordersDb));
         }
 
         public IActionResult Detail(Guid orderId)

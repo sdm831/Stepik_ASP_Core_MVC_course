@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnlineShop.db;
 using Stepik_ASP_Core_MVC_course.Helpers;
-using Stepik_ASP_Core_MVC_course.Models;
-using System.Collections.Generic;
+using System;
 
 namespace Stepik_ASP_Core_MVC_course.Controllers
 {
@@ -19,9 +18,16 @@ namespace Stepik_ASP_Core_MVC_course.Controllers
         }
 
         public IActionResult Index()
-        {            
-            var products = productRepository.GetAll();            
-            return View(products.ToProductViewModels());
+        {
+            try
+            {
+                var products = productRepository.GetAll();                
+                return View(Mapping.ToProductViewModels(products));
+            }
+            catch (Exception e)
+            {
+                throw;
+            }            
         }      
     }
 }

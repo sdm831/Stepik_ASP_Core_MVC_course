@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnlineShop.db;
+using OnlineShop.db.Models;
 using Stepik_ASP_Core_MVC_course.Helpers;
 using Stepik_ASP_Core_MVC_course.Models;
+using System.Linq;
 
 namespace Stepik_ASP_Core_MVC_course.Controllers
 {
@@ -18,11 +20,12 @@ namespace Stepik_ASP_Core_MVC_course.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var orders = ordersRepository.GetAll();
+            return View(orders.Select(x => Mapping.ToOrderViewModel(x)).ToList());
         }
 
         [HttpPost]
-        public IActionResult Buy(UserDeliveryInfo user)
+        public IActionResult Buy(UserDeliveryInfoViewModel user)
         {
             if (!ModelState.IsValid)
             {
@@ -30,15 +33,13 @@ namespace Stepik_ASP_Core_MVC_course.Controllers
             }
             
             var existingCart = cartsRepository.TryGetByUserId(Constants.UserId);
-
-            var existingCartViewModel = existingCart.ToCartViewModel();
-
+                        
             var order = new Order
             {
-                User = user,
-                Items = existingCartViewModel.Items
+                User = Mapping.ToUserDeliveryInfoDb(user),                
+                Items = existingCart.Items
             };
-
+                        
             ordersRepository.Add(order);
             
             cartsRepository.Clear(Constants.UserId);
