@@ -6,8 +6,10 @@ namespace Stepik_ASP_Core_MVC_course.Models
     {
         [Required]
         public string UserName { get; set; }
+
         [Required]
         public string UserPhone { get; set; }
+
         [Required]
         public string UserAdress { get; set; }
     }

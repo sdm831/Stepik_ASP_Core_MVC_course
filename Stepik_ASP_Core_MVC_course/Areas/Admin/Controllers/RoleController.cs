@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using OnlineShop.db;
 using Stepik_ASP_Core_MVC_course.Areas.Admin.Models;
+using Stepik_ASP_Core_MVC_course.Helpers;
 
 namespace Stepik_ASP_Core_MVC_course.Areas.Admin.Controllers
 {
@@ -15,7 +17,7 @@ namespace Stepik_ASP_Core_MVC_course.Areas.Admin.Controllers
 
         public IActionResult Index()
         {
-            var roles = rolesRepository.GetAll();
+            var roles = Mapping.ToRolesViewModel(rolesRepository.GetAll());
             return View(roles);
         }
         
@@ -25,7 +27,7 @@ namespace Stepik_ASP_Core_MVC_course.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(Role role)
+        public IActionResult Add(RoleViewModel role)
         {
             if (rolesRepository.TryGetByName(role.Name) != null)
             {
@@ -33,7 +35,7 @@ namespace Stepik_ASP_Core_MVC_course.Areas.Admin.Controllers
             }
             if (ModelState.IsValid)
             {
-                rolesRepository.Add(role);
+                rolesRepository.Add(Mapping.toRoleDb(role));
                 return RedirectToAction(nameof(Index));
             }
             return View(role);

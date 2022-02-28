@@ -1,4 +1,5 @@
 ﻿using OnlineShop.db.Models;
+using Stepik_ASP_Core_MVC_course.Areas.Admin.Models;
 using Stepik_ASP_Core_MVC_course.Models;
 using System;
 using System.Collections.Generic;
@@ -107,6 +108,35 @@ namespace Stepik_ASP_Core_MVC_course.Helpers
                 UserName = deliveryInfoVm.UserName,
                 UserAdress = deliveryInfoVm.UserAdress,
                 UserPhone = deliveryInfoVm.UserPhone
+            };
+        }
+
+        public static RoleDb toRoleDb(RoleViewModel role)
+        {
+            return new RoleDb
+            {
+                Name = role.Name
+            };
+        }
+
+        public static List<RoleViewModel> ToRolesViewModel(List<RoleDb> rolesDb)
+        {
+            var rolesVm = new List<RoleViewModel>();
+
+            foreach (var roleDb in rolesDb)
+            {
+                rolesVm.Add(Mapping.ToRoleViewModel(roleDb));
+            }
+
+            return rolesVm;
+        }
+
+        private static RoleViewModel ToRoleViewModel(RoleDb roleDb)
+        {
+            return new RoleViewModel
+            {
+                Id = roleDb.id,
+                Name = roleDb.Name
             };
         }
     }

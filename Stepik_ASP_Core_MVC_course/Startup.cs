@@ -26,8 +26,9 @@ namespace Stepik_ASP_Core_MVC_course
             services.AddTransient<ICartsRepository,    DbRepositoryCarts>();
             services.AddTransient<IOrdersRepository,   DbRepositoryOrders>();
             services.AddTransient<IFavoriteRepository, DbRepositoryFavorite>();
-                        
-            services.AddSingleton<IRolesRepository, RolesInMemoryRepository>();
+            services.AddTransient<IRolesRepository,    DbRepositoryRoles>();
+
+            //services.AddSingleton<IRolesRepository, RolesInMemoryRepository>();
             services.AddSingleton<IUsersManager, UsersManager>();
             services.AddControllersWithViews();
         }
