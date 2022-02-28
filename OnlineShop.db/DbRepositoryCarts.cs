@@ -42,7 +42,7 @@ namespace OnlineShop.db
                         {
                             Amount = 1,
                             Product = product,
-                            Cart = newCart
+                            //Cart = newCart
                         }
 
                 };
@@ -62,7 +62,7 @@ namespace OnlineShop.db
                     {
                         Amount = 1,
                         Product = product,
-                        Cart = existingCart
+                        //Cart = existingCart
                     });
                 }
             }

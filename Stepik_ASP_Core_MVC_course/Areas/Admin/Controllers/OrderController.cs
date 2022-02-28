@@ -25,7 +25,9 @@ namespace Stepik_ASP_Core_MVC_course.Areas.Admin.Controllers
 
         public IActionResult Detail(Guid orderId)
         {
-            return View(ordersRepository.TryGetById(orderId));
+            var orderDb = ordersRepository.TryGetById(orderId);
+            var orderVM = Mapping.ToOrderViewModel(orderDb);
+            return View(orderVM);
         }
 
         public IActionResult UpdateOrderStatus(Guid orderId, OrderStatus status)

@@ -24,7 +24,7 @@ namespace Stepik_ASP_Core_MVC_course.Controllers
             return View(orders.Select(x => Mapping.ToOrderViewModel(x)).ToList());
         }
 
-        [HttpPost]
+        //[HttpPost]
         public IActionResult Buy(UserDeliveryInfoViewModel user)
         {
             if (!ModelState.IsValid)
@@ -33,7 +33,9 @@ namespace Stepik_ASP_Core_MVC_course.Controllers
             }
             
             var existingCart = cartsRepository.TryGetByUserId(Constants.UserId);
-                        
+
+            var ii = existingCart.Items;
+
             var order = new Order
             {
                 User = Mapping.ToUserDeliveryInfoDb(user),                
