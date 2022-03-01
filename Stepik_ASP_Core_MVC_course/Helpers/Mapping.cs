@@ -34,6 +34,19 @@ namespace Stepik_ASP_Core_MVC_course.Helpers
             return productsViewModels;
         }
 
+        public static Product ToProductDb(ProductViewModel productVm)
+        {
+            var productDb = new Product
+            {
+                Id = productVm.Id,
+                Name = productVm.Name,
+                Cost = productVm.Cost,
+                Description = productVm.Description
+            };
+            
+            return productDb;
+        }
+
         public static CartViewModel ToCartViewModel(Cart cartDb)
         {
             if(cartDb == null)
@@ -66,7 +79,7 @@ namespace Stepik_ASP_Core_MVC_course.Helpers
             
             return cartItems;
         }
-
+        
         public static OrderViewModel ToOrderViewModel(Order orderDb)
         {
             return new OrderViewModel()

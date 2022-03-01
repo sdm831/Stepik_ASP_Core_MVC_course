@@ -1,7 +1,7 @@
 ﻿@model ProductViewModel
 
 <form method="post">
-    <h3>Изменение продукта</h3>
+    <h3>Изменение товара</h3>
 
     <div class="text-danger font-weight-bold" asp-validation-summary="All"></div>
 
@@ -9,7 +9,7 @@
 
     <div class="row">
         <div class="col-3">
-            <label asp-for="Name">Название продукта</label>
+            <label asp-for="Name">Название товара</label>
         </div>
         <div class="col-3">
             <input class="form-control" asp-for="Name" value="@Model?.Name"/>

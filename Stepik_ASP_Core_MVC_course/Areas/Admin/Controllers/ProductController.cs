@@ -50,23 +50,25 @@ namespace Stepik_ASP_Core_MVC_course.Areas.Admin.Controllers
 
         public IActionResult Edit(Guid productId)
         {
-            return View(productsRepository.TryGetById(productId));
+            return View(Mapping.ToProductViewModel(productsRepository.TryGetById(productId)));
         }
 
         [HttpPost]
-        public IActionResult Edit(ProductViewModel product)
+        public IActionResult Edit(ProductViewModel productVm)
         {
             if (!ModelState.IsValid)
             {
-                return View(product);
+                return View(productVm);
             }
 
-            var productDb = new Product
-            {
-                Name = product.Name,
-                Cost = product.Cost,
-                Description = product.Description
-            };
+            //var productDb = new Product
+            //{
+            //    Name = productVm.Name,
+            //    Cost = productVm.Cost,
+            //    Description = productVm.Description
+            //};
+
+            var productDb = Mapping.ToProductDb(productVm);
 
             productsRepository.Update(productDb);
             return RedirectToAction(nameof(Index));

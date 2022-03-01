@@ -34,6 +34,7 @@ namespace OnlineShop.db
         public void Update(Product product)
         {
             var existingProduct = databaseContext.Products.FirstOrDefault(p => p.Id == product.Id);
+            
             if (existingProduct == null)
             {
                 return;
@@ -42,6 +43,7 @@ namespace OnlineShop.db
             existingProduct.Name = product.Name;
             existingProduct.Description = product.Description;
             existingProduct.Cost = product.Cost;
+            databaseContext.Update(existingProduct);
             databaseContext.SaveChanges();
         }
 
