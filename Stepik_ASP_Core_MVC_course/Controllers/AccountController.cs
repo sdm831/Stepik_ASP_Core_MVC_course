@@ -1,29 +1,48 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Stepik_ASP_Core_MVC_course.Areas.Admin.Models;
 using Stepik_ASP_Core_MVC_course.Models;
+using Microsoft.AspNetCore.Identity;
+using OnlineShop.db.Models;
 
 namespace Stepik_ASP_Core_MVC_course.Controllers
 {
     public class AccountController : Controller
     {
         private readonly IUsersManager usersManager;
+        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
 
-        public AccountController(IUsersManager usersManager)
+        public AccountController(IUsersManager usersManager, UserManager<User> userManager, SignInManager<User> signInManager)
         {
             this.usersManager = usersManager;
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
-
-        public IActionResult Login()
+        
+        public IActionResult Login(string returnUrl)
         {
-            return View();
+            return View(new Login() { ReturnUrl = returnUrl });
         }
 
         [HttpPost]
         public IActionResult Login(Login login)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return RedirectToAction(nameof(login));
+                var result = _signInManager.PasswordSignInAsync(login.UserName, login.Password, login.RememberMe, false).Result;
+
+                if (result.Succeeded)
+                {
+                    //return login.ReturnUrl != null ? Redirect(login.ReturnUrl) : View("/home/index");
+
+                    return Redirect(login.ReturnUrl ?? "/Home");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Неправильный пароль");
+                }
+
+                return View(login);
             }
 
             var userAccount = usersManager.TryGetByName(login.UserName);
@@ -42,9 +61,9 @@ namespace Stepik_ASP_Core_MVC_course.Controllers
             return RedirectToAction(nameof(HomeController.Index), nameof(HomeController).Replace("Controller", ""));
         }
 
-        public IActionResult Register()
+        public IActionResult Register(string returnUrl)
         {
-            return View();
+            return View(new Register() { ReturnUrl = returnUrl});
         }
 
         [HttpPost]
@@ -57,17 +76,39 @@ namespace Stepik_ASP_Core_MVC_course.Controllers
             
             if (ModelState.IsValid)
             {
-                usersManager.Add(new UserAccount
+                User user = new User() { Email = register.UserName, UserName = register.UserName };
+
+                var result = _userManager.CreateAsync(user, register.Password).Result;
+
+                if (result.Succeeded)
                 {
-                    Name = register.UserName,
-                    Password = register.Password,
-                    Phone = register.Phone
-                });
+                    //установка куки
+                    _signInManager.SignInAsync(user, false).Wait();
+
+                    return Redirect(register.ReturnUrl ?? "/Home");
+                }
+                else
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
+                }
                 
-                return RedirectToAction(nameof(HomeController.Index), nameof(HomeController).Replace("Controller", ""));
+                return View(register);                
             }
 
             return RedirectToAction(nameof(Register));
+        }
+
+        public IActionResult Logout()
+        {
+            _signInManager.SignOutAsync().Wait();
+
+            var t1 = nameof(HomeController);
+
+            return RedirectToAction(nameof(HomeController.Index), nameof(HomeController).Replace("Controller", ""));
+            //return RedirectToAction(nameof(HomeController));
         }
     }
 }

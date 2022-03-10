@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using OnlineShop.db;
 using Stepik_ASP_Core_MVC_course.Helpers;
 using System;
 
 namespace Stepik_ASP_Core_MVC_course.Controllers
 {
+    [Authorize]
     public class CartController : Controller
     {
         private readonly IProductsRepository productRepository;

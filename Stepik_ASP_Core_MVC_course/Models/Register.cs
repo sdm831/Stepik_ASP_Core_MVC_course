@@ -19,5 +19,7 @@ namespace Stepik_ASP_Core_MVC_course.Models
         [StringLength(100, MinimumLength = 4)]
         [Compare("Password")]
         public string ConfirmPassword { get; set; }
+
+        public string ReturnUrl { get; set; }
     }
 }
