@@ -1,22 +1,19 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Stepik_ASP_Core_MVC_course.Areas.Admin.Models;
-using Stepik_ASP_Core_MVC_course.Models;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using OnlineShop.db.Models;
+using Stepik_ASP_Core_MVC_course.Models;
 
 namespace Stepik_ASP_Core_MVC_course.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly IUsersManager usersManager;
-        private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
+        private readonly UserManager<UserDb> userManager;
+        private readonly SignInManager<UserDb> signInManager;
 
-        public AccountController(IUsersManager usersManager, UserManager<User> userManager, SignInManager<User> signInManager)
+        public AccountController(UserManager<UserDb> userManager, SignInManager<UserDb> signInManager)
         {
-            this.usersManager = usersManager;
-            _userManager = userManager;
-            _signInManager = signInManager;
+            this.userManager = userManager;
+            this.signInManager = signInManager;
         }
         
         public IActionResult Login(string returnUrl)
@@ -29,36 +26,19 @@ namespace Stepik_ASP_Core_MVC_course.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = _signInManager.PasswordSignInAsync(login.UserName, login.Password, login.RememberMe, false).Result;
+                var result = signInManager.PasswordSignInAsync(login.UserName, login.Password, login.RememberMe, false).Result;
 
                 if (result.Succeeded)
                 {
-                    //return login.ReturnUrl != null ? Redirect(login.ReturnUrl) : View("/home/index");
-
-                    return Redirect(login.ReturnUrl ?? "/Home");
+                    return Redirect(login.ReturnUrl ?? "/Home/Index");
                 }
                 else
                 {
                     ModelState.AddModelError("", "Неправильный пароль");
                 }
-
-                return View(login);
             }
 
-            var userAccount = usersManager.TryGetByName(login.UserName);
-            if (userAccount == null)
-            {
-                ModelState.AddModelError("", "Такого пользователя не существует!");
-                return RedirectToAction(nameof(login));
-            }
-
-            if (userAccount.Password != login.Password)
-            {
-                ModelState.AddModelError("", "Неправильный пароль!");
-                return RedirectToAction(nameof(login));
-            }
-
-            return RedirectToAction(nameof(HomeController.Index), nameof(HomeController).Replace("Controller", ""));
+            return View(login);
         }
 
         public IActionResult Register(string returnUrl)
@@ -76,15 +56,14 @@ namespace Stepik_ASP_Core_MVC_course.Controllers
             
             if (ModelState.IsValid)
             {
-                User user = new User() { Email = register.UserName, UserName = register.UserName };
+                UserDb user = new UserDb() { Email = register.UserName, UserName = register.UserName, PhoneNumber = register.Phone };
 
-                var result = _userManager.CreateAsync(user, register.Password).Result;
+                var result = userManager.CreateAsync(user, register.Password).Result;
 
                 if (result.Succeeded)
                 {
                     //установка куки
-                    _signInManager.SignInAsync(user, false).Wait();
-
+                    signInManager.SignInAsync(user, false).Wait();
                     return Redirect(register.ReturnUrl ?? "/Home");
                 }
                 else
@@ -103,12 +82,8 @@ namespace Stepik_ASP_Core_MVC_course.Controllers
 
         public IActionResult Logout()
         {
-            _signInManager.SignOutAsync().Wait();
-
-            var t1 = nameof(HomeController);
-
-            return RedirectToAction(nameof(HomeController.Index), nameof(HomeController).Replace("Controller", ""));
-            //return RedirectToAction(nameof(HomeController));
+            signInManager.SignOutAsync().Wait();                        
+            return RedirectToAction(nameof(HomeController.Index), nameof(HomeController).Replace("Controller", ""));            
         }
     }
 }

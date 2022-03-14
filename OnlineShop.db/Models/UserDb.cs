@@ -2,7 +2,7 @@
 
 namespace OnlineShop.db.Models
 {
-    public class User : IdentityUser
+    public class UserDb : IdentityUser
     {
     }
 }

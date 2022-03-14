@@ -6,29 +6,28 @@ using System.Threading.Tasks;
 
 namespace Stepik_ASP_Core_MVC_course
 {
-    public class UsersManager : IUsersManager
+    public class UsersManager
     {
-        private readonly List<UserAccount> users = new List<UserAccount>();
+        private readonly List<UserViewModel> users = new List<UserViewModel>();
 
-        public List<UserAccount> GetAll()
+        public List<UserViewModel> GetAll()
         {
             return users;
         }
 
-        public void Add(UserAccount user)
+        public void Add(UserViewModel user)
         {
             users.Add(user);
         }
 
-        public UserAccount TryGetByName(string name)
+        public UserViewModel TryGetByName(string name)
         {
             return users.FirstOrDefault(x => x.Name == name);
         }
 
         public void ChangePassword(string userName, string newPassword)
         {
-            var account = TryGetByName(userName);
-            account.Password = newPassword;
+            var account = TryGetByName(userName);            
         }
     }
 }

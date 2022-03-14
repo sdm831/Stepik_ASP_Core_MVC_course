@@ -31,7 +31,7 @@ namespace Stepik_ASP_Core_MVC_course
             // Add Identity
             services.AddDbContext<IdentityContext>(options => options.UseSqlServer(connection));
             
-            services.AddIdentity<User, IdentityRole>()
+            services.AddIdentity<UserDb, IdentityRole>()
                 .AddEntityFrameworkStores<IdentityContext>();
 
             // cookies
@@ -50,9 +50,7 @@ namespace Stepik_ASP_Core_MVC_course
             services.AddTransient<ICartsRepository,    DbRepositoryCarts>();
             services.AddTransient<IOrdersRepository,   DbRepositoryOrders>();
             services.AddTransient<IFavoriteRepository, DbRepositoryFavorite>();
-            services.AddTransient<IRolesRepository,    DbRepositoryRoles>();
                         
-            services.AddSingleton<IUsersManager, UsersManager>();
             services.AddControllersWithViews();
         }
 

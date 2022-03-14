@@ -18,7 +18,7 @@ namespace Stepik_ASP_Core_MVC_course
             {
                 var services = scope.ServiceProvider;
 
-                var userManager = services.GetRequiredService<UserManager<User>>();
+                var userManager = services.GetRequiredService<UserManager<UserDb>>();
                 var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
                 IdentityInitializer.Initialize(userManager, roleManager);
             }

@@ -6,7 +6,7 @@ namespace OnlineShop.db
 {
     public class IdentityInitializer
     {
-        public static void Initialize(UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
+        public static void Initialize(UserManager<UserDb> userManager, RoleManager<IdentityRole> roleManager)
         {
             var adminEmail = "adm1@adm.com";
             var password = "Adm1@adm.com";
@@ -23,7 +23,7 @@ namespace OnlineShop.db
 
             if(userManager.FindByNameAsync(adminEmail).Result == null)
             {   
-                var admin = new User { Email = adminEmail, UserName = adminEmail };
+                var admin = new UserDb { Email = adminEmail, UserName = adminEmail };
                 var result = userManager.CreateAsync(admin, password).Result;
 
                 if (result.Succeeded)

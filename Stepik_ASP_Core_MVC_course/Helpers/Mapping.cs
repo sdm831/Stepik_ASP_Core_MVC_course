@@ -10,6 +10,19 @@ namespace Stepik_ASP_Core_MVC_course.Helpers
 {
     public static class Mapping
     {
+        // ------- users --------
+        
+        public static UserViewModel ToUserViewModel(UserDb userDb)
+        {
+            return new UserViewModel
+            {
+                Name = userDb.UserName,
+                Phone = userDb.PhoneNumber
+            };
+        }
+        
+        // ------ products -------
+
         public static ProductViewModel ToProductViewModel(Product productDb)
         {
             return new ProductViewModel
@@ -47,6 +60,8 @@ namespace Stepik_ASP_Core_MVC_course.Helpers
             return productDb;
         }
 
+        // ------- carts --------
+
         public static CartViewModel ToCartViewModel(Cart cartDb)
         {
             if(cartDb == null)
@@ -80,6 +95,8 @@ namespace Stepik_ASP_Core_MVC_course.Helpers
             return cartItems;
         }
         
+        // ------- orders --------
+
         public static OrderViewModel ToOrderViewModel(Order orderDb)
         {
             return new OrderViewModel()
@@ -104,6 +121,8 @@ namespace Stepik_ASP_Core_MVC_course.Helpers
             return ordersVm;
         }
 
+        // ------- userDeliveryInfo -------
+
         public static UserDeliveryInfoViewModel ToUserDeliveryInfoViewModel(UserDeliveryInfo deliveryInfoDb)
         {
             return new UserDeliveryInfoViewModel
@@ -124,7 +143,9 @@ namespace Stepik_ASP_Core_MVC_course.Helpers
             };
         }
 
-        public static RoleDb toRoleDb(RoleViewModel role)
+        // ------- roles -------
+
+        public static RoleDb ToRoleDb(RoleViewModel role)
         {
             return new RoleDb
             {
@@ -148,7 +169,7 @@ namespace Stepik_ASP_Core_MVC_course.Helpers
         {
             return new RoleViewModel
             {
-                Id = roleDb.id,
+                //Id = roleDb.id,
                 Name = roleDb.Name
             };
         }

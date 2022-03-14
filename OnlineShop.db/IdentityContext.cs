@@ -4,7 +4,7 @@ using OnlineShop.db.Models;
 
 namespace OnlineShop.db
 {
-    public class IdentityContext : IdentityDbContext<User>
+    public class IdentityContext : IdentityDbContext<UserDb>
     {
         public IdentityContext(DbContextOptions<IdentityContext> options)
             : base(options)

@@ -1,12 +1,8 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
 
 namespace OnlineShop.db.Models
 {
-    public class RoleDb
+    public class RoleDb : IdentityRole
     {        
-        public Guid id { get; set; }
-
-        public string Name { get; set; }
     }
 }
