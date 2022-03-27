@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using OnlineShop.db;
 using OnlineShop.db.Models;
 using Stepik_ASP_Core_MVC_course.Models;
+using System;
 
 namespace Stepik_ASP_Core_MVC_course.Controllers
 {
@@ -64,6 +66,9 @@ namespace Stepik_ASP_Core_MVC_course.Controllers
                 {
                     //установка куки
                     signInManager.SignInAsync(user, false).Wait();
+
+                    TryAssignUserRole(user);
+
                     return Redirect(register.ReturnUrl ?? "/Home");
                 }
                 else
@@ -78,6 +83,18 @@ namespace Stepik_ASP_Core_MVC_course.Controllers
             }
 
             return RedirectToAction(nameof(Register));
+        }
+
+        private void TryAssignUserRole(UserDb user)
+        {
+            try
+            {
+                userManager.AddToRoleAsync(user, Constants.UserRoleName).Wait();
+            }
+            catch
+            {
+                // add log
+            }
         }
 
         public IActionResult Logout()

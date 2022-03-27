@@ -7,5 +7,11 @@ namespace Stepik_ASP_Core_MVC_course.Areas.Admin.Models
     {
         [Required]
         public string Name { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            var role = (RoleViewModel)obj;
+            return Name == role.Name;
+        }
     }
 }
