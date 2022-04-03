@@ -17,22 +17,11 @@ namespace OnlineShop.db.Models
 
         public List<CartItem> CartItems { get; set; }
 
-        public List<Image> Images { get; set; }
-
-        public Product(Guid id, string name, decimal cost, string description) : this()
-        {
-            Id = id;
-            Name = name;
-            Cost = cost;
-            Description = description;
-        }
+        public bool IsDeleted { get; set; }
 
         public Product()
         {
             CartItems = new List<CartItem>();
-            Images = new List<Image>();
-        }
-
-        //public bool IsDeleted { get; set; }
+        }        
     }
 }

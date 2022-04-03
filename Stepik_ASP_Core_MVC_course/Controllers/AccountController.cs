@@ -97,7 +97,7 @@ namespace Stepik_ASP_Core_MVC_course.Controllers
             }
         }
 
-        public IActionResult Logout()
+        public IActionResult Logout()  // SignOut() ??
         {
             signInManager.SignOutAsync().Wait();                        
             return RedirectToAction(nameof(HomeController.Index), nameof(HomeController).Replace("Controller", ""));            

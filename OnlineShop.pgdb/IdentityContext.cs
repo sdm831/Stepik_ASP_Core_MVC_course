@@ -2,9 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using OnlineShop.db.Models;
 
-// migration
-// Add-Migration InitIdentity -context IdentityContext -OutputDir Migrations/Identity
-
 namespace OnlineShop.db
 {
     public class IdentityContext : IdentityDbContext<UserDb>

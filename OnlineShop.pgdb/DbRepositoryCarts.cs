@@ -29,7 +29,7 @@ namespace OnlineShop.db
         public void Add(Product product, string userId)
         {
             var existingCart = TryGetByUserId(userId);
-
+            
             if (existingCart == null)
             {
                 var newCart = new Cart
@@ -48,7 +48,7 @@ namespace OnlineShop.db
                 };
                 databaseContext.Carts.Add(newCart);
             }
-
+            
             else
             {
                 var existingCartItem = existingCart.Items.FirstOrDefault(x => x.Product.Id == product.Id);
@@ -84,7 +84,7 @@ namespace OnlineShop.db
 
             if (existingCartItem.Amount == 0)
             {
-                databaseContext.Carts.Remove(existingCartItem);
+                databaseContext.CartItems.Remove(existingCartItem);                
             }
 
             databaseContext.SaveChanges();
@@ -107,4 +107,3 @@ namespace OnlineShop.db
         }
     }
 }
-

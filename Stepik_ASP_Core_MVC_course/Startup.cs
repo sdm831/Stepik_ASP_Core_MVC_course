@@ -29,8 +29,11 @@ namespace Stepik_ASP_Core_MVC_course
             services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(connection));
 
             // Add Identity
+                // for MsSql
             services.AddDbContext<IdentityContext>(options => options.UseSqlServer(connection));
-            
+                // for Postgres
+            //services.AddDbContext<IdentityContext>(options => options.UseNpgsql(connection));
+
             services.AddIdentity<UserDb, IdentityRole>()
                 .AddEntityFrameworkStores<IdentityContext>();
 
@@ -46,11 +49,11 @@ namespace Stepik_ASP_Core_MVC_course
                 };
             });
 
+            services.AddTransient<IOrdersRepository,   DbRepositoryOrders>();
             services.AddTransient<IProductsRepository, DbRepositoryProducts>();
             services.AddTransient<ICartsRepository,    DbRepositoryCarts>();
-            services.AddTransient<IOrdersRepository,   DbRepositoryOrders>();
             services.AddTransient<IFavoriteRepository, DbRepositoryFavorite>();
-                        
+            
             services.AddControllersWithViews();
         }
 

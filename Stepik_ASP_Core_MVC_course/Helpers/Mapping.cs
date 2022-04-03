@@ -11,7 +11,7 @@ namespace Stepik_ASP_Core_MVC_course.Helpers
     public static class Mapping
     {
         // ------- users --------
-        
+
         public static UserViewModel ToUserViewModel(UserDb userDb)
         {
             return new UserViewModel
@@ -20,7 +20,7 @@ namespace Stepik_ASP_Core_MVC_course.Helpers
                 Phone = userDb.PhoneNumber
             };
         }
-        
+
         // ------ products -------
 
         public static ProductViewModel ToProductViewModel(Product productDb)
@@ -31,7 +31,7 @@ namespace Stepik_ASP_Core_MVC_course.Helpers
                 Name = productDb.Name,
                 Cost = productDb.Cost,
                 Description = productDb.Description,
-                ImagePath = productDb.ImagePath
+                ImagesPaths = productDb.Images.Select(x => x.Url).ToArray()
             };
         }
 
@@ -47,7 +47,19 @@ namespace Stepik_ASP_Core_MVC_course.Helpers
             return productsViewModels;
         }
 
-        public static Product ToProductDb(ProductViewModel productVm)
+        public static EditProductViewModel ToEditProductViewModel(this Product product)
+        {
+            return new EditProductViewModel
+            {
+                Id = product.Id,
+                Name = product.Name,
+                Cost = product.Cost,
+                Description = product.Description,
+                ImagesPaths = product.Images.ToPaths()
+            };
+        }
+        
+        public static Product ToProductDb(this ProductViewModel productVm)
         {
             var productDb = new Product
             {
@@ -56,19 +68,52 @@ namespace Stepik_ASP_Core_MVC_course.Helpers
                 Cost = productVm.Cost,
                 Description = productVm.Description
             };
-            
+
             return productDb;
+        }
+
+        public static Product ToProductDb(this AddProductViewModel addProductViewModel, List<string> imagesPaths)
+        {
+            return new Product
+            {
+                Name = addProductViewModel.Name,
+                Cost = addProductViewModel.Cost,
+                Description = addProductViewModel.Description,
+                Images = ToImages(imagesPaths)
+            };
+        }
+
+        public static Product ToProductDb(this EditProductViewModel editProductVM)
+        {
+            return new Product
+            {
+                Id = editProductVM.Id,
+                Name = editProductVM.Name,
+                Cost = editProductVM.Cost,
+                Description = editProductVM.Description,
+                Images = editProductVM.ImagesPaths.ToImages()
+            };
+        }
+
+        public static List<Image> ToImages(this List<string> paths)
+        {
+            return paths.Select(x => new Image { Url = x }).ToList();
+        }
+
+        public static List<string> ToPaths(this List<Image> paths)
+        {
+            return paths.Select(x => x.Url).ToList();
         }
 
         // ------- carts --------
 
         public static CartViewModel ToCartViewModel(Cart cartDb)
         {
-            if(cartDb == null)
+            if (cartDb == null)
             {
                 return null;
             }
-            
+
             return new CartViewModel
             {
                 Id = cartDb.Id,
@@ -91,19 +136,19 @@ namespace Stepik_ASP_Core_MVC_course.Helpers
                 };
                 cartItems.Add(cartItem);
             }
-            
+
             return cartItems;
         }
-        
+
         // ------- orders --------
 
         public static OrderViewModel ToOrderViewModel(Order orderDb)
         {
             return new OrderViewModel()
             {
-                Id=orderDb.Id,
+                Id = orderDb.Id,
                 CreateDateTime = orderDb.CreateDateTime,
-                Status = (OrderStatusViewModel)(int)orderDb.Status,                
+                Status = (OrderStatusViewModel)(int)orderDb.Status,
                 User = Mapping.ToUserDeliveryInfoViewModel(orderDb.User),
                 Items = ToCartItemViewModels(orderDb.Items)
             };
@@ -117,7 +162,7 @@ namespace Stepik_ASP_Core_MVC_course.Helpers
             {
                 ordersVm.Add(ToOrderViewModel(orderDb));
             }
-            
+
             return ordersVm;
         }
 
@@ -132,7 +177,7 @@ namespace Stepik_ASP_Core_MVC_course.Helpers
                 UserPhone = deliveryInfoDb.UserPhone
             };
         }
-        
+
         public static UserDeliveryInfo ToUserDeliveryInfoDb(UserDeliveryInfoViewModel deliveryInfoVm)
         {
             return new UserDeliveryInfo

@@ -1,13 +1,15 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Stepik_ASP_Core_MVC_course.Models
+namespace Stepik_ASP_Core_MVC_course.Areas.Admin.Models
 {
-    public class ProductViewModel
-    {           
+    public class EditProductViewModel
+    {        
         public Guid Id { get; set; }
-
-        [Required]
+        
+            [Required]        
         public string Name { get; set; }
 
         [Range(1, 1000000, ErrorMessage = "Цена должна быть от 1 до 1 000 000 руб.")]
@@ -16,8 +18,8 @@ namespace Stepik_ASP_Core_MVC_course.Models
         [Required]
         public string Description { get; set; }
 
-        public string[] ImagesPaths { get; set; }
+        public List<string> ImagesPaths { get; set; }
 
-        public string ImagePath => ImagesPaths.Length == 0 ? "/images/Products/box.jpg" : ImagesPaths[0];
+        public IFormFile[] UploadedFiles { get; set; }
     }
 }

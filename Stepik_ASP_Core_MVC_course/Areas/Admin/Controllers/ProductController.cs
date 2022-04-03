@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using OnlineShop.db;
-using OnlineShop.db.Models;
+//using OnlineShop.db.Models;
+using Stepik_ASP_Core_MVC_course.Areas.Admin.Models;
 using Stepik_ASP_Core_MVC_course.Helpers;
 using Stepik_ASP_Core_MVC_course.Models;
 using System;
@@ -8,14 +10,17 @@ using System.Collections.Generic;
 
 namespace Stepik_ASP_Core_MVC_course.Areas.Admin.Controllers
 {
-    [Area("Admin")]
+    [Area(Constants.AdminRoleName)]
+    [Authorize(Roles = Constants.AdminRoleName)]
     public class ProductController : Controller
     {
-        private readonly IProductsRepository productsRepository;        
+        private readonly IProductsRepository productsRepository;
+        private readonly ImagesProvider imagesProvider;
 
-        public ProductController(IProductsRepository productsRepository)
+        public ProductController(IProductsRepository productsRepository, ImagesProvider imagesProvider)
         {
-            this.productsRepository = productsRepository;        
+            this.productsRepository = productsRepository;
+            this.imagesProvider = imagesProvider;
         }
         
         public IActionResult Index()
@@ -30,47 +35,36 @@ namespace Stepik_ASP_Core_MVC_course.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(ProductViewModel product)
+        public IActionResult Add(AddProductViewModel product)
         {
             if (!ModelState.IsValid)
             {
                 return View(product);
             }
 
-            var productDb = new Product
-            {
-                Name = product.Name,
-                Cost = product.Cost,
-                Description = product.Description
-            };
+            var imagesPaths = imagesProvider.SafeFiles(product.UploadedFiles, ImageFolders.Products);
 
-            productsRepository.Add(productDb);
+            productsRepository.Add(product.ToProductDb(imagesPaths));
             return RedirectToAction(nameof(Index));
         }
 
         public IActionResult Edit(Guid productId)
         {
-            return View(Mapping.ToProductViewModel(productsRepository.TryGetById(productId)));
+            var product = productsRepository.TryGetById(productId);
+            return View(product.ToEditProductViewModel());
         }
 
         [HttpPost]
-        public IActionResult Edit(ProductViewModel productVm)
+        public IActionResult Edit(EditProductViewModel product)
         {
             if (!ModelState.IsValid)
             {
-                return View(productVm);
+                return View(product);
             }
 
-            //var productDb = new Product
-            //{
-            //    Name = productVm.Name,
-            //    Cost = productVm.Cost,
-            //    Description = productVm.Description
-            //};
-
-            var productDb = Mapping.ToProductDb(productVm);
-
-            productsRepository.Update(productDb);
+            var addedImagesPaths = imagesProvider.SafeFiles(product.UploadedFiles, ImageFolders.Products);
+            product.ImagesPaths = addedImagesPaths;
+            productsRepository.Update(product.ToProductDb());
             return RedirectToAction(nameof(Index));
         }
 

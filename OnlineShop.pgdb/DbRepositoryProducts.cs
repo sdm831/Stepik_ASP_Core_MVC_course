@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using OnlineShop.db.Models;
+﻿using OnlineShop.db.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,31 +12,29 @@ namespace OnlineShop.db
         public DbRepositoryProducts(DatabaseContext databaseContext)
         {
             this.databaseContext = databaseContext;
-        }
+        }       
 
         public void Add(Product product)
         {
-            //product.ImagePath = "https://static9.depositphotos.com/1674252/1149/v/950/depositphotos_11495781-stock-illustration-wavy-new-sign.jpg";
+            product.ImagePath = "https://static9.depositphotos.com/1674252/1149/v/950/depositphotos_11495781-stock-illustration-wavy-new-sign.jpg";
             databaseContext.Products.Add(product);
             databaseContext.SaveChanges();
         }
-
+        
         public List<Product> GetAll()
         {
-            //var t1 = databaseContext.Products;
-            return databaseContext.Products.Include(x => x.Images).ToList();
+            var t1 = databaseContext.Products;
+            return databaseContext.Products.ToList();
         }
         public Product TryGetById(Guid id)
         {
-            return databaseContext.Products.FirstOrDefault(p => p.Id == id);
+            return databaseContext.Products.FirstOrDefault(product => product.Id == id);
         }
 
         public void Update(Product product)
         {
-            var existingProduct = databaseContext.Products
-                .Include(x => x.Images)
-                .FirstOrDefault(p => p.Id == product.Id);
-
+            var existingProduct = databaseContext.Products.FirstOrDefault(p => p.Id == product.Id);
+            
             if (existingProduct == null)
             {
                 return;
@@ -46,22 +43,15 @@ namespace OnlineShop.db
             existingProduct.Name = product.Name;
             existingProduct.Description = product.Description;
             existingProduct.Cost = product.Cost;
-
-            //var existingUrls = existingProduct.Images.Select(x => x.Url).ToList();
-
-            foreach (var image in product.Images)
-            {
-                image.ProductId = product.Id;
-                databaseContext.Images.Add(image);
-            }
-
+            databaseContext.Update(existingProduct);
             databaseContext.SaveChanges();
         }
 
         public void RemoveProduct(Guid productId)
         {
-            var product = TryGetById(productId);
-            databaseContext.Products.Remove(product);
+            var test = databaseContext.Products.FirstOrDefault(p => p.Id == productId);
+            
+            databaseContext.Products.Remove(databaseContext.Products.FirstOrDefault(p => p.Id == productId));
             databaseContext.SaveChanges();
         }
     }

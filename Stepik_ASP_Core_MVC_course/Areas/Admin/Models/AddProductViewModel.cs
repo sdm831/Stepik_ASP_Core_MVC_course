@@ -1,12 +1,10 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
 
-namespace Stepik_ASP_Core_MVC_course.Models
+namespace Stepik_ASP_Core_MVC_course.Areas.Admin.Models
 {
-    public class ProductViewModel
-    {           
-        public Guid Id { get; set; }
-
+    public class AddProductViewModel
+    {        
         [Required]
         public string Name { get; set; }
 
@@ -16,8 +14,6 @@ namespace Stepik_ASP_Core_MVC_course.Models
         [Required]
         public string Description { get; set; }
 
-        public string[] ImagesPaths { get; set; }
-
-        public string ImagePath => ImagesPaths.Length == 0 ? "/images/Products/box.jpg" : ImagesPaths[0];
+        public IFormFile[] UploadedFiles { get; set; }
     }
 }
