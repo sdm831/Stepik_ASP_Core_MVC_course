@@ -3,22 +3,20 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OnlineShop.db;
 
-namespace OnlineShop.db.Migrations
+namespace OnlineShop.db.Migrations.Data
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20220302114241_Add_IsDeleted_Product")]
-    partial class Add_IsDeleted_Product
+    partial class DatabaseContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.6")
+                .HasAnnotation("ProductVersion", "5.0.9")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("OnlineShop.db.Models.Cart", b =>
@@ -64,7 +62,7 @@ namespace OnlineShop.db.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("CartItems");
+                    b.ToTable("CartItem");
                 });
 
             modelBuilder.Entity("OnlineShop.db.Models.FavoriteProduct", b =>
@@ -84,6 +82,39 @@ namespace OnlineShop.db.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("FavoriteProducts");
+                });
+
+            modelBuilder.Entity("OnlineShop.db.Models.Image", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("ProductId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Url")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("Images");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("aa33aaa3-33a3-3a33-333a-33a3aaa33a33"),
+                            ProductId = new Guid("aa11aaa1-11a1-1a11-111a-11a1aaa11a11"),
+                            Url = "/images/Products/box.jpg"
+                        },
+                        new
+                        {
+                            Id = new Guid("aa44aaa4-44a4-4a44-444a-44a4aaa44a44"),
+                            ProductId = new Guid("aa22aaa2-22a2-2a22-222a-22a2aaa22a22"),
+                            Url = "/images/Products/box.jpg"
+                        });
                 });
 
             modelBuilder.Entity("OnlineShop.db.Models.Order", b =>
@@ -120,32 +151,28 @@ namespace OnlineShop.db.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ImagePath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Products");
-                });
 
-            modelBuilder.Entity("OnlineShop.db.Models.RoleDb", b =>
-                {
-                    b.Property<Guid>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("id");
-
-                    b.ToTable("Roles");
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("aa11aaa1-11a1-1a11-111a-11a1aaa11a11"),
+                            Cost = 10m,
+                            Description = "Desc1",
+                            Name = "Name1"
+                        },
+                        new
+                        {
+                            Id = new Guid("aa22aaa2-22a2-2a22-222a-22a2aaa22a22"),
+                            Cost = 20m,
+                            Description = "Desc2",
+                            Name = "Name2"
+                        });
                 });
 
             modelBuilder.Entity("OnlineShop.db.Models.UserDeliveryInfo", b =>
@@ -194,6 +221,16 @@ namespace OnlineShop.db.Migrations
                     b.Navigation("Product");
                 });
 
+            modelBuilder.Entity("OnlineShop.db.Models.Image", b =>
+                {
+                    b.HasOne("OnlineShop.db.Models.Product", "Product")
+                        .WithMany("Images")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("OnlineShop.db.Models.Order", b =>
                 {
                     b.HasOne("OnlineShop.db.Models.UserDeliveryInfo", "User")
@@ -216,6 +253,8 @@ namespace OnlineShop.db.Migrations
             modelBuilder.Entity("OnlineShop.db.Models.Product", b =>
                 {
                     b.Navigation("CartItems");
+
+                    b.Navigation("Images");
                 });
 #pragma warning restore 612, 618
         }

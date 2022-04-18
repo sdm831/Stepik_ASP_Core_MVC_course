@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using OnlineShop.db;
 using OnlineShop.db.Models;
 using Serilog;
+using Stepik_ASP_Core_MVC_course.Helpers;
 using System;
 
 namespace Stepik_ASP_Core_MVC_course
@@ -26,16 +27,20 @@ namespace Stepik_ASP_Core_MVC_course
             string connection = Configuration.GetConnectionString("online_shop");
             
             // Add DB connection
-            services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(connection));
+            services.AddDbContext<DatabaseContext>(options =>
+            {
+                options.EnableSensitiveDataLogging(true);
+                options.UseSqlServer(connection);
+            });
 
             // Add Identity
                 // for MsSql
             services.AddDbContext<IdentityContext>(options => options.UseSqlServer(connection));
-                // for Postgres
+            // for Postgres
             //services.AddDbContext<IdentityContext>(options => options.UseNpgsql(connection));
 
-            services.AddIdentity<UserDb, IdentityRole>()
-                .AddEntityFrameworkStores<IdentityContext>();
+            services.AddIdentity<UserDb, IdentityRole>() // указываем тип пользователя и роли  
+                .AddEntityFrameworkStores<IdentityContext>(); // устанавливаем тип хранилища - наш контекст
 
             // cookies
             services.ConfigureApplicationCookie(options =>
@@ -53,12 +58,16 @@ namespace Stepik_ASP_Core_MVC_course
             services.AddTransient<IProductsRepository, DbRepositoryProducts>();
             services.AddTransient<ICartsRepository,    DbRepositoryCarts>();
             services.AddTransient<IFavoriteRepository, DbRepositoryFavorite>();
+            services.AddTransient<ImagesProvider>();
             
             services.AddControllersWithViews();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            // Нужно для показа исключений!
+            app.UseDeveloperExceptionPage();
+
             app.UseStaticFiles();   
 
             app.UseSerilogRequestLogging();

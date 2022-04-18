@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using OnlineShop.db;
 using OnlineShop.db.Models;
 using Stepik_ASP_Core_MVC_course.Areas.Admin.Models;
 using Stepik_ASP_Core_MVC_course.Helpers;
@@ -8,7 +10,8 @@ using System.Linq;
 
 namespace Stepik_ASP_Core_MVC_course.Areas.Admin.Controllers
 {
-    [Area("Admin")]
+    [Area(Constants.AdminRoleName)]
+    [Authorize(Roles = Constants.AdminRoleName)]
     public class UserController : Controller
     {
         private readonly UserManager<UserDb> usersManager;
@@ -76,7 +79,7 @@ namespace Stepik_ASP_Core_MVC_course.Areas.Admin.Controllers
             var userRoles = usersManager.GetRolesAsync(user).Result;
             var roles = rolesManager.Roles.ToList();
 
-            var model = new EditRithtsViewModel
+            var model = new EditRightsViewModel
             {
                 UserName = user.UserName,
                 UserRoles = userRoles.Select(x => new RoleViewModel { Name = x }).ToList(),

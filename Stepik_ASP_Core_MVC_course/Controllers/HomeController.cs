@@ -8,13 +8,11 @@ namespace Stepik_ASP_Core_MVC_course.Controllers
     public class HomeController : Controller
     {
         private readonly IProductsRepository productRepository;
-        //private readonly ICartsRepository cartsRepository;
+        
 
-
-        public HomeController(IProductsRepository productRepository/*, ICartsRepository cartsRepository*/)
+        public HomeController(IProductsRepository productRepository)
         {
-            this.productRepository = productRepository;
-            //this.cartsRepository = cartsRepository;
+            this.productRepository = productRepository;            
         }
 
         public IActionResult Index()

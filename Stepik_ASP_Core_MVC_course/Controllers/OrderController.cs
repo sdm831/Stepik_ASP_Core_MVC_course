@@ -22,8 +22,9 @@ namespace Stepik_ASP_Core_MVC_course.Controllers
 
         public IActionResult Index()
         {
-            var orders = ordersRepository.GetAll();
-            return View(orders.Select(x => Mapping.ToOrderViewModel(x)).ToList());
+            //var orders = ordersRepository.GetAll();
+            //return View(orders.Select(x => Mapping.ToOrderViewModel(x)).ToList());
+            return View();
         }
 
         //[HttpPost]
@@ -33,19 +34,19 @@ namespace Stepik_ASP_Core_MVC_course.Controllers
             {
                 return View("Index", user);
             }
-            
+
             var existingCart = cartsRepository.TryGetByUserId(Constants.UserId);
 
-            var ii = existingCart.Items;
+            //var ii = existingCart.Items;
 
             var order = new Order
             {
-                User = Mapping.ToUserDeliveryInfoDb(user),                
+                User = Mapping.ToUserDeliveryInfoDb(user),
                 Items = existingCart.Items
             };
-                        
+
             ordersRepository.Add(order);
-            
+
             cartsRepository.Clear(Constants.UserId);
             return View();
         }

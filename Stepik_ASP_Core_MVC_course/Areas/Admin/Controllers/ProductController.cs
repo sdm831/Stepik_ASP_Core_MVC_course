@@ -1,12 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.db;
-//using OnlineShop.db.Models;
+using OnlineShop.db.Models;
 using Stepik_ASP_Core_MVC_course.Areas.Admin.Models;
 using Stepik_ASP_Core_MVC_course.Helpers;
-using Stepik_ASP_Core_MVC_course.Models;
 using System;
-using System.Collections.Generic;
 
 namespace Stepik_ASP_Core_MVC_course.Areas.Admin.Controllers
 {

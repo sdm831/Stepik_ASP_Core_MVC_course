@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 namespace Stepik_ASP_Core_MVC_course.Models
 {
     public class ProductViewModel
-    {           
+    {
         public Guid Id { get; set; }
 
         [Required]

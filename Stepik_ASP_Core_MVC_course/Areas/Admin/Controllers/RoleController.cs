@@ -1,13 +1,14 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using OnlineShop.db.Models;
+using OnlineShop.db;
 using Stepik_ASP_Core_MVC_course.Areas.Admin.Models;
-using Stepik_ASP_Core_MVC_course.Helpers;
 using System.Linq;
 
 namespace Stepik_ASP_Core_MVC_course.Areas.Admin.Controllers
 {
-    [Area("Admin")]
+    [Area(Constants.AdminRoleName)]
+    [Authorize(Roles = Constants.AdminRoleName)]
     public class RoleController : Controller
     {
         private readonly RoleManager<IdentityRole> rolesManager;

@@ -23,20 +23,24 @@ namespace OnlineShop.db
         }
 
         public List<Product> GetAll()
-        {
-            //var t1 = databaseContext.Products;
-            return databaseContext.Products.Include(x => x.Images).ToList();
+        {            
+            return databaseContext.Products
+                .Include(x => x.Images)
+                //.Include(x => x.CartItems)
+                //.ThenInclude(x => x.Product)
+                .ToList();
         }
         public Product TryGetById(Guid id)
         {
-            return databaseContext.Products.FirstOrDefault(p => p.Id == id);
+            //return databaseContext.Products.FirstOrDefault(p => p.Id == id);
+            return databaseContext.Products.Include(x => x.Images).FirstOrDefault(product => product.Id == id);
         }
 
         public void Update(Product product)
         {
             var existingProduct = databaseContext.Products
                 .Include(x => x.Images)
-                .FirstOrDefault(p => p.Id == product.Id);
+                .FirstOrDefault(x => x.Id == product.Id);
 
             if (existingProduct == null)
             {

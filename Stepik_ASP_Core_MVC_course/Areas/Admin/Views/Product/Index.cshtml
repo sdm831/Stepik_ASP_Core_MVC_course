@@ -14,6 +14,7 @@
 
         <div class="row">
             <table class="table">
+
                 <thead>
                     <tr>
                         <th>№</th>
@@ -23,26 +24,36 @@
                         <th></th>
                     </tr>
                 </thead>
+
                 <tbody>
                     @for (int i = 0; i < Model.Count; i++)
                     {
-                    <tr>
-                        <td>@(i+1)</td>
-                        <td>@Model[i].Name</td>
-                        <td>@Model[i].Cost</td>
-                        <td><a 
-                               asp-area="Admin"
+                        <tr>
+                            <td>@(i+1)</td>
+
+                            <td>
+                                <img src="@Model[i].ImagePath"
+                                 class="img-fluid"
+                                 height="40" width="40" />
+                                @Model[i].Name
+                            </td>
+
+                            <td>@Model[i].Cost</td>
+
+                            <td>
+                                <a asp-area="Admin"
                                asp-controller="Product"
                                asp-action="Edit"
-                               asp-route-productId="@Model[i].Id"
-                               >Редактировать</a></td>
-                        <td><a 
-                               asp-area="Admin"
+                               asp-route-productId="@Model[i].Id">Редактировать</a>
+                            </td>
+
+                            <td>
+                                <a asp-area="Admin"
                                asp-controller="Product"
                                asp-action="Remove"
-                               asp-route-productId="@Model[i].Id"
-                               >Удалить</a></td>
-                    </tr>
+                               asp-route-productId="@Model[i].Id">Удалить</a>
+                            </td>
+                        </tr>
                     }
                 </tbody>
             </table>

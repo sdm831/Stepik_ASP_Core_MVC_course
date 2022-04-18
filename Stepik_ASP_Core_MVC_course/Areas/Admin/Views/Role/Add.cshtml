@@ -1,21 +1,21 @@
-﻿@model RoleViewModel 
+﻿@model RoleViewModel
 
-    <form method="post">
+<form method="post">
+    <div>
         <h3>Создание новой роли</h3>
+    </div>
 
-        <div class="text-danger font-weight-bold" asp-validation-summary="All"></div>
+    <div class="text-danger font-weight-bold" asp-validation-summary="All"></div>
 
-        <div class="row">
-            <div class="col-3">
-                <label asp-for="Name">Название роли</label>
-            </div>
-            <div class="col-3">
-                <input class="form-control" asp-for="Name" />
-                <span asp-validation-for="Name" />
-            </div>
+    <div class="row">
+        <div class="col-6">
+            <label asp-for="Name"></label><br />        
+            <input class="form-control" asp-for="Name" />
+            <span asp-validation-for="Name" />
         </div>
-                
-        <div>
-            <button class="btn btn-success" type="submit" asp-area="Admin" asp-controller="Role" asp-action="Add">Создать</button>
-        </div>
-    </form>
+    </div>
+
+    <div>
+        <button class="btn btn-success" type="submit" asp-area="Admin" asp-controller="Role" asp-action="Add">Создать</button>
+    </div>
+</form>

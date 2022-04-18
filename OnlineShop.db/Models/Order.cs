@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace OnlineShop.db.Models
 {
@@ -13,9 +12,9 @@ namespace OnlineShop.db.Models
         public DateTime CreateDateTime { get; set; }
 
         public Order()
-        {            
+        {
             Status = OrderStatus.Created;
             CreateDateTime = DateTime.Now;
-        }        
+        }
     }
 }

@@ -23,7 +23,7 @@ namespace Stepik_ASP_Core_MVC_course.Helpers
 
         // ------ products -------
 
-        public static ProductViewModel ToProductViewModel(Product productDb)
+        public static ProductViewModel ToProductViewModel(this Product productDb)
         {
             return new ProductViewModel
             {
@@ -59,14 +59,14 @@ namespace Stepik_ASP_Core_MVC_course.Helpers
             };
         }
         
-        public static Product ToProductDb(this ProductViewModel productVm)
+        public static Product ToProductDb(this ProductViewModel productViewModel)
         {
             var productDb = new Product
             {
-                Id = productVm.Id,
-                Name = productVm.Name,
-                Cost = productVm.Cost,
-                Description = productVm.Description
+                Id = productViewModel.Id,
+                Name = productViewModel.Name,
+                Cost = productViewModel.Cost,
+                Description = productViewModel.Description
             };
 
             return productDb;
@@ -142,7 +142,7 @@ namespace Stepik_ASP_Core_MVC_course.Helpers
 
         // ------- orders --------
 
-        public static OrderViewModel ToOrderViewModel(Order orderDb)
+        public static OrderViewModel ToOrderViewModel(this Order orderDb)
         {
             return new OrderViewModel()
             {
@@ -154,7 +154,7 @@ namespace Stepik_ASP_Core_MVC_course.Helpers
             };
         }
 
-        public static List<OrderViewModel> ToOrdersViewModel(List<Order> ordersDb)
+        public static List<OrderViewModel> ToOrdersViewModel(this List<Order> ordersDb)
         {
             List<OrderViewModel> ordersVm = new List<OrderViewModel>();
 
@@ -190,34 +190,34 @@ namespace Stepik_ASP_Core_MVC_course.Helpers
 
         // ------- roles -------
 
-        public static RoleDb ToRoleDb(RoleViewModel role)
-        {
-            return new RoleDb
-            {
-                Name = role.Name
-            };
-        }
-
-        public static List<RoleViewModel> ToRolesViewModel(List<RoleDb> rolesDb)
-        {
-            var rolesVm = new List<RoleViewModel>();
-
-            foreach (var roleDb in rolesDb)
-            {
-                rolesVm.Add(Mapping.ToRoleViewModel(roleDb));
-            }
-
-            return rolesVm;
-        }
-
-        private static RoleViewModel ToRoleViewModel(RoleDb roleDb)
-        {
-            return new RoleViewModel
-            {
-                //Id = roleDb.id,
-                Name = roleDb.Name
-            };
-        }
+        //public static RoleDb ToRoleDb(RoleViewModel role)
+        //{
+        //    return new RoleDb
+        //    {
+        //        Name = role.Name
+        //    };
+        //}
+        //
+        //public static List<RoleViewModel> ToRolesViewModel(List<RoleDb> rolesDb)
+        //{
+        //    var rolesVm = new List<RoleViewModel>();
+        //
+        //    foreach (var roleDb in rolesDb)
+        //    {
+        //        rolesVm.Add(Mapping.ToRoleViewModel(roleDb));
+        //    }
+        //
+        //    return rolesVm;
+        //}
+        //
+        //private static RoleViewModel ToRoleViewModel(RoleDb roleDb)
+        //{
+        //    return new RoleViewModel
+        //    {
+        //        //Id = roleDb.id,
+        //        Name = roleDb.Name
+        //    };
+        //}
     }
 }
 

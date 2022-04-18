@@ -12,12 +12,12 @@ namespace Stepik_ASP_Core_MVC_course.Models
         public OrderStatusViewModel Status { get; set; }
         public DateTime CreateDateTime { get; set; }
         
-        public OrderViewModel()
-        {
-            Id = Guid.NewGuid();
-            Status = OrderStatusViewModel.Created;
-            CreateDateTime = DateTime.Now;
-        }
+        //public OrderViewModel()
+        //{
+        //    Id = Guid.NewGuid();
+        //    Status = OrderStatusViewModel.Created;
+        //    CreateDateTime = DateTime.Now;
+        //}
         
         public decimal Cost
         {

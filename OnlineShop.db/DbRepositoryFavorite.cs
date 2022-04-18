@@ -13,21 +13,39 @@ namespace OnlineShop.db
         public DbRepositoryFavorite(DatabaseContext databaseContext)
         {
             this.databaseContext = databaseContext;
-        }               
-                
-        List<Product> IFavoriteRepository.GetAll(string userId)
-        {
-            return databaseContext.FavoriteProducts
-                .Where(p => p.UserId == userId)
-                .Include(x => x.Product)
-                .Select(x => x.Product)
-                .ToList();           
         }
-        
-        void IFavoriteRepository.Add(string userId, Product product)
+
+        //List<Product> IFavoriteRepository.GetAll(string userId)
+        //{
+        //    return databaseContext.FavoriteProducts
+        //        .Where(p => p.UserId == userId)
+        //        .Include(x => x.Product)
+        //        .Select(x => x.Product)
+        //        .ToList();           
+        //}
+
+        public List<Product> GetAll(string userId)
         {
-            var existingProduct = databaseContext.FavoriteProducts
-                        .FirstOrDefault(x => x.UserId == userId && x.Product.Id == product.Id);
+            return databaseContext.FavoriteProducts.Where(x => x.UserId == userId)
+                                            .Include(x => x.Product)
+                                            .Select(x => x.Product)
+                                            .ToList();
+        }
+
+        //void IFavoriteRepository.Add(string userId, Product product)
+        //{
+        //    var existingProduct = databaseContext.FavoriteProducts
+        //                .FirstOrDefault(x => x.UserId == userId && x.Product.Id == product.Id);
+        //    if (existingProduct == null)
+        //    {
+        //        databaseContext.FavoriteProducts.Add(new FavoriteProduct { Product = product, UserId = userId });
+        //        databaseContext.SaveChanges();
+        //    }
+        //}
+
+        public void Add(string userId, Product product)
+        {
+            var existingProduct = databaseContext.FavoriteProducts.FirstOrDefault(x => x.UserId == userId && x.Product.Id == product.Id);
             if (existingProduct == null)
             {
                 databaseContext.FavoriteProducts.Add(new FavoriteProduct { Product = product, UserId = userId });
@@ -35,11 +53,18 @@ namespace OnlineShop.db
             }
         }
 
+        //public void Clear(string userId)
+        //{
+        //    var products = databaseContext.FavoriteProducts.Where(x => x.UserId == userId);
+        //    databaseContext.FavoriteProducts.RemoveRange(products);
+        //    databaseContext.SaveChanges();                        
+        //}
+
         public void Clear(string userId)
         {
-            var products = databaseContext.FavoriteProducts.Where(x => x.UserId == userId);
-            databaseContext.FavoriteProducts.RemoveRange(products);
-            databaseContext.SaveChanges();                        
+            var userFavoriteProducts = databaseContext.FavoriteProducts.Where(u => u.UserId == userId).ToList();
+            databaseContext.FavoriteProducts.RemoveRange(userFavoriteProducts);
+            databaseContext.SaveChanges();
         }
 
         public void Remove(string userId, Guid productId)

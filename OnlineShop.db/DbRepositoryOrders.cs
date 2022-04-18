@@ -29,7 +29,7 @@ namespace OnlineShop.db
             var orders = databaseContext.Orders
                 .Include(x => x.User)
                 .Include(x => x.Items)
-                .ThenInclude(x => x.Product)                
+                .ThenInclude(x => x.Product)
                 .ToList();
             return orders;
         }
@@ -39,9 +39,16 @@ namespace OnlineShop.db
             return databaseContext.Orders.Include(x => x.Items)
                 .ThenInclude(x => x.Product)
                 .Include(x => x.User)
-                .FirstOrDefault(o => o.Id == id);
-                
+                .FirstOrDefault(x => x.Id == id);                
         }
+
+        //public Order TryGetById(Guid id)
+        //{
+        //    return databaseContext.Orders.Include(x => x.User)
+        //        .Include(x => x.Items)
+        //        .ThenInclude(x => x.Product)
+        //        .FirstOrDefault(x => x.Id == id);
+        //}
 
         public void UpdateStatus(Guid orderId, OrderStatus newStatus)
         {
@@ -49,7 +56,7 @@ namespace OnlineShop.db
             if (order != null)
             {
                 order.Status = newStatus;
-                databaseContext.Orders.Update(order);
+                //databaseContext.Orders.Update(order);
                 databaseContext.SaveChanges();
             }
         }

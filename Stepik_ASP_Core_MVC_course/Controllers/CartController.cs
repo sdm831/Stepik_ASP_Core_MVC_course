@@ -37,11 +37,11 @@ namespace Stepik_ASP_Core_MVC_course.Controllers
             return RedirectToAction("Index");
         }
         
-        public IActionResult DelItem(Guid productId)
-        {
-            cartsRepository.DelItem(productId, Constants.UserId);
-            return RedirectToAction("Index");
-        }
+        //public IActionResult DelItem(Guid productId)
+        //{
+        //    cartsRepository.DelItem(productId, Constants.UserId);
+        //    return RedirectToAction("Index");
+        //}
 
         public IActionResult ClearCart()
         {

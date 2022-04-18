@@ -1,4 +1,4 @@
-﻿@model EditRithtsViewModel
+﻿@model EditRightsViewModel
 
 <form method="post">
     <div>
@@ -18,12 +18,13 @@
             {
                 <input class="form-check-input" name="userRolesViewModel[@role.Name]" type="checkbox" value="true" />
                 <label class="form-check-label" for="flexCheckDefault"> @role.Name </label>
+                @*<label class="form-check-label" for="flexCheckChecked"> @role.Name </label>*@
             }
         </div>
     }
 
     <div>
-        <button type="submit" asp-area="Admin" asp-controller="User" asp-action="EditRights">Сменить</button>   
+        <button type="submit" asp-area="Admin" asp-controller="User" asp-action="EditRights">Сменить</button>
     </div>
 </form>
 
